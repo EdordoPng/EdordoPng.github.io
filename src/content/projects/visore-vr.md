@@ -5,6 +5,7 @@ pubDate: 2024-01-20
 heroImage: "/post_img.webp"
 badge: "VR"
 tags: ["VR", "Unity", "C#"]
+lang: "ITA"
 ---
 
 ## Dettagli VR

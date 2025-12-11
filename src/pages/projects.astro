@@ -47,7 +47,8 @@ const allTags = [...new Set(posts.flatMap((post) => post.data.tags || []))];
           url={"/projects/" + post.slug}
           target="_self"
           badge={post.data.badge}
-          tags={post.data.tags} // Passiamo i tag anche alla card visiva
+          tags={post.data.tags}
+          lang={post.data.lang}
         />
         <div class="divider my-0"></div>
       </div>

@@ -1,5 +1,5 @@
 ---
-const { title, img, desc, url, badge, tags, target = "_blank" } = Astro.props;
+const { title, img, desc, url, badge, tags, target = "_blank", lang } = Astro.props;
 import { Image } from "astro:assets";
 const tag_url = url.split("/").slice(0, -1).join("/") + "/tag";
 ---
@@ -19,6 +19,12 @@ const tag_url = url.split("/").slice(0, -1).join("/") + "/tag";
             alt={title}
             class="max-w-full md:max-w-[13rem] rounded-lg"
           />
+          {lang && (
+              <span class="absolute bottom-1 right-1 badge badge-neutral text-xs opacity-90 font-bold uppercase border-none">
+                {lang}
+              </span>
+            )}
+          </div>
         )
       }
       <div class="grow w-full">

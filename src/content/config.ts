@@ -20,6 +20,7 @@ const projectSchema = defineCollection({
         badge: z.string().optional(),
         tags: z.array(z.string()).optional(),
         url: z.string().optional(),
+        lang: z.string().optional(),
     }),
 });
 
