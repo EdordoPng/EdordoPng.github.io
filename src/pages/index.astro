@@ -2,12 +2,9 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import HorizontalCard from "../components/HorizontalCard.astro";
 import { getCollection } from "astro:content";
-import createSlug from "../lib/createSlug"
+import { Image } from "astro:assets";
 
-//const posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-//const last_posts = posts.slice(0, 3);
-
-// Recuperiamo i progetti ordinati per data
+// Recuperiamo i progetti ordinati per data (NON il blog)
 const projects = (await getCollection("projects")).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 // Prendiamo solo i primi 3 da mostrare in Home
@@ -16,17 +13,17 @@ const last_projects = projects.slice(0, 3);
 
 <BaseLayout sideBarActiveItemID="home">
   <div class="pb-12 mt-5">
-  <div class="text-xl py-1">Hey there 👋</div>
-  <div class="text-5xl font-bold">I'm Edoardo</div>
-  <div class="text-3xl py-3 font-bold">Computer Engineer & AI Specialist</div>
-  <div class="py-2">
-    <text class="text-lg">
-      Curious and strategy-minded engineer with a passion for <b>Blockchain</b> and <b>decentralised technologies</b>. 
-      Experienced in navigating the intersection of code, business, and innovation to deliver real value through secure and scalable solutions.
-      <br/><br/>
-      My technical background spans from <b>Artificial Intelligence</b> (Reasoning & DL) and <b>Cybersecurity</b> to immersive <b>AR/VR experiences</b>.
-    </text>
-  </div>
+    <div class="text-xl py-1">Hey there 👋</div>
+    <div class="text-5xl font-bold">I'm Edoardo</div>
+    <div class="text-3xl py-3 font-bold">Computer Engineer & AI Specialist</div>
+    <div class="py-2">
+      <text class="text-lg">
+        Curious and strategy-minded engineer with a passion for <b>Blockchain</b> and <b>decentralised technologies</b>. 
+        Experienced in navigating the intersection of code, business, and innovation to deliver real value through secure and scalable solutions.
+        <br/><br/>
+        My technical background spans from <b>Artificial Intelligence</b> (Reasoning & DL) and <b>Cybersecurity</b> to immersive <b>AR/VR experiences</b>.
+      </text>
+    </div>
   </div>
 
   <div>
@@ -34,20 +31,20 @@ const last_projects = projects.slice(0, 3);
   </div>
 
   {
-  last_projects.map((project) => (
-    <>
-      <HorizontalCard
-        title={project.data.title}
-        img={project.data.heroImage}
-        desc={project.data.description}
-        url={"/projects/" + project.slug}
-        target="_self"
-        badge={project.data.badge}
-        lang={post.data.lang}
-      />
-      <div class="divider my-0"></div>
-    </>
-  ))
-}
+    last_projects.map((project) => (
+      <>
+        <HorizontalCard
+          title={project.data.title}
+          img={project.data.heroImage}
+          desc={project.data.description}
+          url={"/projects/" + project.slug}
+          target="_self"
+          badge={project.data.badge}
+          lang={project.data.lang} 
+        />
+        <div class="divider my-0"></div>
+      </>
+    ))
+  }
 
 </BaseLayout>
