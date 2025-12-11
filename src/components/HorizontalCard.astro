@@ -11,19 +11,21 @@ const tag_url = url.split("/").slice(0, -1).join("/") + "/tag";
     <div class="hero-content flex-col md:flex-row">
       {
         img && (
-          <Image
-            src={img}
-            width={750}
-            height={422}
-            format="webp"
-            alt={title}
-            class="max-w-full md:max-w-[13rem] rounded-lg"
-          />
-          {lang && (
+          <div class="relative shrink-0">
+            <Image
+              src={img}
+              width={750}
+              height={422}
+              format="webp"
+              alt={title}
+              class="max-w-full md:max-w-[13rem] rounded-lg aspect-video object-cover"
+            />
+             {lang && (
               <span class="absolute bottom-1 right-1 badge badge-neutral text-xs opacity-90 font-bold uppercase border-none">
                 {lang}
               </span>
             )}
+          </div>
         )
       }
       <div class="grow w-full">

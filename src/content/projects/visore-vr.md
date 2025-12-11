@@ -6,6 +6,7 @@ heroImage: "/post_img.webp"
 badge: "VR"
 tags: ["VR", "Unity", "C#"]
 lang: "ITA"
+url: "https://github.com/EdordoPng/nome-della-tua-repo"
 ---
 
 ## Dettagli VR
