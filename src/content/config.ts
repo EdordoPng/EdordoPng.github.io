@@ -11,6 +11,18 @@ const blogSchema = z.object({
     }).optional(),
 });
 
+const projectSchema = defineCollection({
+    schema: z.object({
+        title: z.string(),
+        description: z.string(),
+        pubDate: z.coerce.date(),
+        heroImage: z.string().optional(),
+        badge: z.string().optional(),
+        tags: z.array(z.string()).optional(),
+        url: z.string().optional(),
+    }),
+});
+
 const storeSchema = z.object({
     title: z.string(),
     description: z.string(),
@@ -32,5 +44,6 @@ const storeCollection = defineCollection({ schema: storeSchema });
 
 export const collections = {
     'blog': blogCollection,
-    'store': storeCollection
+    'store': storeCollection,
+    'projects': projectSchema
 }
