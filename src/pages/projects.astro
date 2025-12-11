@@ -1,51 +1,89 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import HorizontalCard from "../components/HorizontalCard.astro";
+import { getCollection } from "astro:content";
+
+// 1. Recuperiamo tutti i progetti ordinati per data decrescente
+const posts = (await getCollection("projects")).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+// 2. Estraiamo tutti i tag unici per creare i bottoni del filtro
+const allTags = [...new Set(posts.flatMap((post) => post.data.tags || []))];
 ---
 
 <BaseLayout title = "Projects" sideBarActiveItemID="projects">
   <div>
-    <div class="text-3xl w-full font-bold mb-5">Projects Header</div>
+    <div class="text-3xl w-full font-bold mb-5">I Miei Progetti</div>
   </div>
 
-  <HorizontalCard
-    title="Demo Project 1"
-    img="/post_img.webp"
-    desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    url="#"
-    badge="NEW"
-  />
-  <div class="divider my-0"></div>
-  <HorizontalCard
-    title="Demo Project 2"
-    img="/post_img.webp"
-    desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    url="#"
-  />
-
-  <div>
-    <div class="text-3xl w-full font-bold mb-5 mt-10">Projects Header</div>
+  <div class="mb-8 flex flex-wrap gap-2" id="filter-container">
+    <button 
+      class="btn btn-outline btn-sm filter-btn btn-active" 
+      data-filter="all">
+      Tutti
+    </button>
+    
+    {allTags.map((tag) => (
+      <button 
+        class="btn btn-outline btn-sm filter-btn" 
+        data-filter={tag}>
+        {tag}
+      </button>
+    ))}
   </div>
 
-  <HorizontalCard
-    title="Demo Project 3"
-    img="/post_img.webp"
-    desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    url="#"
-    badge="FOSS"
-  />
-  <div class="divider my-0"></div>
-  <HorizontalCard
-    title="Demo Project 4"
-    img="/post_img.webp"
-    desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    url="#"
-  />
-  <div class="divider my-0"></div>
-  <HorizontalCard
-    title="Demo Project 5"
-    img="/post_img.webp"
-    desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    url="#"
-  />
+  <div id="projects-grid">
+    {posts.map((post) => (
+      // Aggiungiamo una classe 'project-item' e un attributo data-tags per il filtraggio JS
+      <div 
+        class="project-item transition-all duration-300 ease-in-out" 
+        data-tags={post.data.tags?.join(",") || ""}
+      >
+        <HorizontalCard
+          title={post.data.title}
+          img={post.data.heroImage}
+          desc={post.data.description}
+          url={"/projects/" + post.slug}
+          target="_self"
+          badge={post.data.badge}
+          tags={post.data.tags} // Passiamo i tag anche alla card visiva
+        />
+        <div class="divider my-0"></div>
+      </div>
+    ))}
+  </div>
+
+  <script is:inline>
+    // Selezioniamo tutti i bottoni e tutti i progetti
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const projectItems = document.querySelectorAll('.project-item');
+
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        // 1. Rimuovi la classe 'btn-active' da tutti i bottoni e aggiungila a quello cliccato
+        filterButtons.forEach(btn => btn.classList.remove('btn-active'));
+        button.classList.add('btn-active');
+
+        // 2. Leggi il filtro selezionato
+        const filterValue = button.getAttribute('data-filter');
+
+        // 3. Mostra o nascondi i progetti
+        projectItems.forEach(item => {
+          const itemTags = item.getAttribute('data-tags');
+          
+          if (filterValue === 'all' || itemTags.includes(filterValue)) {
+            // Mostra
+            item.style.display = 'block';
+            // Piccola animazione di fade-in opzionale
+            setTimeout(() => item.style.opacity = '1', 50);
+          } else {
+            // Nascondi
+            item.style.opacity = '0';
+            setTimeout(() => item.style.display = 'none', 300); // Aspetta l'animazione
+          }
+        });
+      });
+    });
+  </script>
 </BaseLayout>
