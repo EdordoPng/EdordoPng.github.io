@@ -17,40 +17,67 @@ posts.forEach(post => {
   });
 });
 
-// 3. Estraiamo i tag unici e li ordiniamo alfabeticamente (A-Z)
-const sortedTags = Object.keys(tagCounts).sort((a, b) => a.localeCompare(b));
+// 3. Estraiamo i tag unici e li ordiniamo per Quantità Decrescente (Max -> Min)
+// Questo è l'ordine iniziale richiesto per mostrare i "top 10"
+const sortedTags = Object.keys(tagCounts).sort((a, b) => {
+  return tagCounts[b] - tagCounts[a];
+});
 ---
 
 <BaseLayout title="Projects" sideBarActiveItemID="projects">
   
-  <div class="flex justify-between items-center mb-5">
+  <div class="flex justify-between items-end mb-5">
     <div class="text-3xl font-bold">I Miei Progetti</div>
     
-    <button id="view-toggle-btn" class="btn btn-outline btn-sm" title="Cambia Vista">
-      <svg id="icon-list" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="block"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
-      <svg id="icon-grid" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-    </button>
+    <div class="flex gap-2">
+      <div class="dropdown dropdown-end">
+        <div tabindex="0" role="button" class="btn btn-outline btn-sm m-1" title="Ordina Tag">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M7 12h10"/><path d="M10 18h4"/></svg>
+        </div>
+        <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 border border-base-200">
+          <li><a id="sort-count">📊 Quantità (Max-Min)</a></li>
+          <li><a id="sort-alpha">🔤 Alfabetico (A-Z)</a></li>
+        </ul>
+      </div>
+
+      <button id="view-toggle-btn" class="btn btn-outline btn-sm m-1" title="Cambia Vista">
+        <svg id="icon-list" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="block"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+        <svg id="icon-grid" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+      </button>
+    </div>
   </div>
 
-  <div class="mb-8 flex flex-wrap gap-2" id="filter-container">
-    <button class="btn btn-outline btn-sm filter-btn btn-active" data-filter="all">
-      Tutti
-    </button>
-    {sortedTags.map((tag) => (
-      <button class="btn btn-outline btn-sm filter-btn" data-filter={tag}>
-        {tag} <span class="text-xs opacity-70 ml-1">({tagCounts[tag]})</span>
+  <div class="mb-8">
+    <div class="flex flex-wrap gap-2" id="filter-container">
+      <button class="btn btn-outline btn-sm filter-btn btn-active" data-filter="all">
+        Tutti
       </button>
-    ))}
+      
+      {sortedTags.map((tag) => (
+        <button 
+          class="btn btn-outline btn-sm filter-btn tag-btn" 
+          data-filter={tag}
+          data-name={tag}
+          data-count={tagCounts[tag]}
+        >
+          {tag} <span class="text-xs opacity-70 ml-1">({tagCounts[tag]})</span>
+        </button>
+      ))}
+    </div>
+
+    {sortedTags.length > 10 && (
+      <button id="expand-tags-btn" class="btn btn-ghost btn-xs mt-2 w-full text-opacity-50 hover:text-opacity-100">
+        Mostra altri {sortedTags.length - 10} tag ▼
+      </button>
+    )}
   </div>
 
   <div id="projects-grid" class="flex flex-col gap-4 transition-all duration-300">
-    
     {posts.map((post) => (
       <div 
         class="project-item transition-all duration-300 ease-in-out" 
         data-tags={post.data.tags?.join(",") || ""}
       >
-        
         <div class="view-list block">
           <HorizontalCard
             title={post.data.title}
@@ -79,7 +106,6 @@ const sortedTags = Object.keys(tagCounts).sort((a, b) => a.localeCompare(b));
                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 )}
-                {/* Badge Lingua sopra l'immagine */}
                 {post.data.lang && (
                   <div class="absolute bottom-2 right-2 badge badge-neutral text-xs font-bold opacity-90">
                     {post.data.lang}
@@ -95,14 +121,16 @@ const sortedTags = Object.keys(tagCounts).sort((a, b) => a.localeCompare(b));
             </div>
           </a>
         </div>
-
       </div>
     ))}
   </div>
 
   <script is:inline>
-    // --- LOGICA FILTRI (Mantenuta uguale) ---
+    // ==========================================
+    // 1. LOGICA FILTRI (Selezione Multipla)
+    // ==========================================
     const activeTags = new Set();
+    // Nota: selezioniamo .tag-btn per escludere il bottone "Tutti" dalla lista generica se serve
     const filterButtons = document.querySelectorAll('.filter-btn');
     const projectItems = document.querySelectorAll('.project-item');
 
@@ -131,7 +159,7 @@ const sortedTags = Object.keys(tagCounts).sort((a, b) => a.localeCompare(b));
           const itemTags = item.getAttribute('data-tags').split(',');
           const isVisible = activeTags.size === 0 || itemTags.some(t => activeTags.has(t));
           if (isVisible) {
-            item.style.display = 'block'; // Nota: display block va bene anche in griglia perché agisce sul wrapper
+            item.style.display = 'block'; 
             setTimeout(() => item.style.opacity = '1', 50);
           } else {
             item.style.opacity = '0';
@@ -141,49 +169,111 @@ const sortedTags = Object.keys(tagCounts).sort((a, b) => a.localeCompare(b));
       });
     });
 
-    // --- LOGICA CAMBIO VISTA (LISTA <-> GRIGLIA) ---
-    const toggleBtn = document.getElementById('view-toggle-btn');
+    // ==========================================
+    // 2. LOGICA CAMBIO VISTA (Lista/Griglia)
+    // ==========================================
+    const toggleViewBtn = document.getElementById('view-toggle-btn');
     const container = document.getElementById('projects-grid');
     const iconList = document.getElementById('icon-list');
     const iconGrid = document.getElementById('icon-grid');
-    
-    // Stato iniziale
     let isGridView = false;
 
-    toggleBtn.addEventListener('click', () => {
+    toggleViewBtn.addEventListener('click', () => {
       isGridView = !isGridView;
-
-      // 1. Cambia Icona
       if (isGridView) {
         iconList.classList.add('hidden');
         iconGrid.classList.remove('hidden');
-      } else {
-        iconList.classList.remove('hidden');
-        iconGrid.classList.add('hidden');
-      }
-
-      // 2. Cambia Layout Container
-      if (isGridView) {
-        // Passa a Grid (3 colonne su schermi medi/grandi)
         container.classList.remove('flex', 'flex-col');
         container.classList.add('grid', 'grid-cols-1', 'md:grid-cols-2', 'lg:grid-cols-3', 'gap-6');
       } else {
-        // Torna a Lista
+        iconList.classList.remove('hidden');
+        iconGrid.classList.add('hidden');
         container.classList.remove('grid', 'grid-cols-1', 'md:grid-cols-2', 'lg:grid-cols-3', 'gap-6');
         container.classList.add('flex', 'flex-col');
       }
 
-      // 3. Cambia contenuto delle Card
       const listCards = document.querySelectorAll('.view-list');
       const gridCards = document.querySelectorAll('.view-grid');
 
-      listCards.forEach(card => {
-        isGridView ? card.classList.remove('block') || card.classList.add('hidden') : card.classList.remove('hidden') || card.classList.add('block');
+      listCards.forEach(c => isGridView ? c.classList.replace('block', 'hidden') : c.classList.replace('hidden', 'block'));
+      gridCards.forEach(c => isGridView ? c.classList.replace('hidden', 'block') : c.classList.replace('block', 'hidden'));
+    });
+
+    // ==========================================
+    // 3. LOGICA ESPANSIONE TAG (Show More/Less)
+    // ==========================================
+    const expandBtn = document.getElementById('expand-tags-btn');
+    const filterContainer = document.getElementById('filter-container');
+    let isTagsExpanded = false;
+    const TAG_LIMIT = 10;
+
+    // Funzione che applica la visibilità in base al limite
+    function applyTagLimit() {
+      // Selezioniamo tutti i bottoni tranne "Tutti" (che è il primo figlio)
+      const tagButtons = Array.from(filterContainer.querySelectorAll('.tag-btn'));
+      
+      tagButtons.forEach((btn, index) => {
+        if (isTagsExpanded) {
+          btn.classList.remove('hidden'); // Mostra tutto se espanso
+        } else {
+          // Mostra solo i primi 10, nascondi gli altri
+          if (index < TAG_LIMIT) {
+            btn.classList.remove('hidden');
+          } else {
+            btn.classList.add('hidden');
+          }
+        }
       });
 
-      gridCards.forEach(card => {
-        isGridView ? card.classList.remove('hidden') || card.classList.add('block') : card.classList.remove('block') || card.classList.add('hidden');
+      // Aggiorna testo bottone
+      if (expandBtn) {
+        expandBtn.innerHTML = isTagsExpanded 
+          ? 'Mostra meno ▲' 
+          : `Mostra altri ${tagButtons.length - TAG_LIMIT} tag ▼`;
+      }
+    }
+
+    if (expandBtn) {
+      expandBtn.addEventListener('click', () => {
+        isTagsExpanded = !isTagsExpanded;
+        applyTagLimit();
       });
-    });
+      // Applica limite all'avvio
+      applyTagLimit();
+    }
+
+    // ==========================================
+    // 4. LOGICA ORDINAMENTO TAG
+    // ==========================================
+    const sortAlphaBtn = document.getElementById('sort-alpha');
+    const sortCountBtn = document.getElementById('sort-count');
+
+    function sortTags(criteria) {
+      const allButtons = Array.from(filterContainer.querySelectorAll('.filter-btn'));
+      const tuttiButton = allButtons[0]; // Salviamo il tasto "Tutti"
+      const tagButtons = allButtons.slice(1); // Solo i tag veri
+
+      tagButtons.sort((a, b) => {
+        if (criteria === 'alpha') {
+          return a.getAttribute('data-name').localeCompare(b.getAttribute('data-name'));
+        } else {
+          // Count Decrescente
+          return parseInt(b.getAttribute('data-count')) - parseInt(a.getAttribute('data-count'));
+        }
+      });
+
+      // Ri-appendiamo
+      filterContainer.innerHTML = '';
+      filterContainer.appendChild(tuttiButton);
+      tagButtons.forEach(btn => filterContainer.appendChild(btn));
+
+      // Importante: ri-applicare il limite dopo l'ordinamento
+      // Così se ordini A-Z, vedi le prime 10 lettere dell'alfabeto
+      if (expandBtn) applyTagLimit();
+    }
+
+    sortAlphaBtn.addEventListener('click', () => sortTags('alpha'));
+    sortCountBtn.addEventListener('click', () => sortTags('count'));
+
   </script>
 </BaseLayout>
