@@ -8,8 +8,16 @@ const posts = (await getCollection("projects")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 
-// 2. Estraiamo tutti i tag unici per creare i bottoni del filtro
-const allTags = [...new Set(posts.flatMap((post) => post.data.tags || []))];
+// 2. Calcoliamo i conteggi per ogni tag
+const tagCounts = {};
+posts.forEach(post => {
+  (post.data.tags || []).forEach(tag => {
+    tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+  });
+});
+
+// 3. Estraiamo i tag unici e li ordiniamo alfabeticamente (A-Z)
+const sortedTags = Object.keys(tagCounts).sort((a, b) => a.localeCompare(b));
 ---
 
 <BaseLayout title = "Projects" sideBarActiveItemID="projects">
@@ -24,18 +32,17 @@ const allTags = [...new Set(posts.flatMap((post) => post.data.tags || []))];
       Tutti
     </button>
     
-    {allTags.map((tag) => (
+    {sortedTags.map((tag) => (
       <button 
         class="btn btn-outline btn-sm filter-btn" 
         data-filter={tag}>
-        {tag}
+        {tag} <span class="text-xs opacity-70 ml-1">({tagCounts[tag]})</span>
       </button>
     ))}
   </div>
 
   <div id="projects-grid">
     {posts.map((post) => (
-      // Aggiungiamo una classe 'project-item' e un attributo data-tags per il filtraggio JS
       <div 
         class="project-item transition-all duration-300 ease-in-out" 
         data-tags={post.data.tags?.join(",") || ""}
@@ -56,32 +63,26 @@ const allTags = [...new Set(posts.flatMap((post) => post.data.tags || []))];
   </div>
 
   <script is:inline>
-    // Selezioniamo tutti i bottoni e tutti i progetti
     const filterButtons = document.querySelectorAll('.filter-btn');
     const projectItems = document.querySelectorAll('.project-item');
 
     filterButtons.forEach(button => {
       button.addEventListener('click', () => {
-        // 1. Rimuovi la classe 'btn-active' da tutti i bottoni e aggiungila a quello cliccato
+        // Gestione classe active
         filterButtons.forEach(btn => btn.classList.remove('btn-active'));
         button.classList.add('btn-active');
 
-        // 2. Leggi il filtro selezionato
         const filterValue = button.getAttribute('data-filter');
 
-        // 3. Mostra o nascondi i progetti
         projectItems.forEach(item => {
           const itemTags = item.getAttribute('data-tags');
           
           if (filterValue === 'all' || itemTags.includes(filterValue)) {
-            // Mostra
             item.style.display = 'block';
-            // Piccola animazione di fade-in opzionale
             setTimeout(() => item.style.opacity = '1', 50);
           } else {
-            // Nascondi
             item.style.opacity = '0';
-            setTimeout(() => item.style.display = 'none', 300); // Aspetta l'animazione
+            setTimeout(() => item.style.display = 'none', 300);
           }
         });
       });
