@@ -1,0 +1,103 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import TimeLineElement from "../../components/cv/TimeLine.astro";
+---
+
+<BaseLayout title="Blockchain Resume | Edoardo" sideBarActiveItemID="cv">
+  
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">Blockchain Developer</div>
+    <div class="text-xl w-full font-light">Edoardo Diana</div>
+  </div>
+
+  <div class="mb-10 text-justify">
+    Curious and strategy-minded engineer with a passion for <b>blockchain</b> and <b>decentralised technologies</b>. 
+    Experienced in navigating the intersection of code, business, and innovation to deliver real value through secure and scalable solutions.
+  </div>
+
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">Professional Experience</div>
+  </div>
+
+  <div class="time-line-container mb-10">
+    <TimeLineElement
+      title="Blockchain Developer"
+      subtitle="ETHGlobal Hackaton, London"
+    >
+      <ul class="list-disc ml-5 mb-2">
+        <li>Developed new Web3 solutions for EVM-compatible blockchains.</li>
+        <li>Focused on smart contract development across various blockchain infrastructures.</li>
+        <li><b>Winner of 2 hackathon bounties</b>, competing in high-level blockchain innovation challenges.</li>
+      </ul>
+    </TimeLineElement>
+
+    <TimeLineElement
+      title="RWA Project Director"
+      subtitle="MasterZ, Parma"
+    >
+      <ul class="list-disc ml-5 mb-2">
+        <li>Conducted DeFi competitors SWOT analysis.</li>
+        <li>Led the ideation, business plan, and MVP development of a <b>Real World Asset (RWA)</b> startup solution.</li>
+        <li>Collaborated with <b>EY Blockchain</b> to refine strategic insights.</li>
+      </ul>
+    </TimeLineElement>
+
+    <TimeLineElement
+      title="NFT Project Director"
+      subtitle="DollyNoire S.R.L., Milano"
+    >
+      <ul class="list-disc ml-5 mb-2">
+        <li>Managed market analysis and designed entry strategy with detailed operational processes.</li>
+        <li>Designed a robust art engine in <b>Java 11</b>, achieving 80% faster asset creation times for the Cyberdecks NFT Collection.</li>
+        <li>Coordinated advertising campaigns and sponsorships.</li>
+      </ul>
+    </TimeLineElement>
+    
+    <TimeLineElement
+      title="Blockchain and Digital Assets"
+      subtitle="MasterZ (2024)"
+    >
+      Specialized training in Blockchain technologies and Digital Assets ecosystems.
+    </TimeLineElement>
+  </div>
+
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">Education</div>
+  </div>
+
+  <div class="time-line-container grid gap-4 mb-10">
+    <TimeLineElement
+      title="Double Degree Erasmus Program"
+      subtitle="2024-2025 at Universität Klagenfurt, Austria"
+    />
+    <TimeLineElement
+      title="Master Degree: Artificial Intelligence and Cybersecurity"
+      subtitle="2023 - Present at Università di Udine, Italy"
+    />
+    <TimeLineElement
+      title="Bachelor Degree: Computer and Electronic Engineering"
+      subtitle="2017 - 2023 at Università di Pavia, Italy"
+    />
+  </div>
+
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">Blockchain Skills</div>
+  </div>
+
+  <ul class="list-disc md:columns-2 columns-1 mx-6 mb-10">
+    <li>Solidity & Foundry</li>
+    <li>Rust (Solana)</li>
+    <li>TypeScript & Web3.js</li>
+    <li>DeFi Protocols</li>
+    <li>NFT Standards (ERC-721, SPL)</li>
+    <li>Real World Assets (RWA)</li>
+    <li>Zero Knowledge (ZK) Proofs</li>
+    <li>MEV Strategies</li>
+    <li>EVM Chains & Solana Ecosystem</li>
+  </ul>
+
+  <div class="mt-8">
+    <a href="/cv" class="btn btn-outline">← Back to CV Selection</a>
+  </div>
+
+</BaseLayout>
