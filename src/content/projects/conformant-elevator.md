@@ -7,6 +7,7 @@ badge: "Automated Reasoning"
 tags: ["Clingo", "ASP", "Uncertainty", "Robust AI"]
 lang: "ENG"
 url: "https://github.com/EdordoPng/ASP_elevator_confromant_planning"
+related: ["asp-elevator"]
 ---
 
 ## Project Overview
@@ -51,6 +52,9 @@ To reduce the immense search space caused by uncertainty, I implemented directio
 * **Solver:** Clingo (using `incmode`, `forall`, and `exists` encodings)
 * **Paradigm:** Logic Programming under Uncertainty
 * **Validation:** Tested against 8 increasingly complex instances (`instance01.lp` to `instance08.lp`).
+
+## Note 
+This project builds upon the foundational logic established in the Smart Elevator Control project, introducing uncertainty handling.
 
 ---
 *This project demonstrates the ability to reason about robust AI systems that must operate correctly even with faulty sensors or missing data.*

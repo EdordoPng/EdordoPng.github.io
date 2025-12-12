@@ -7,6 +7,7 @@ badge: "Data Science"
 tags: ["Python", "Web Scraping"]
 lang: "ITA"
 url: "https://github.com/EdordoPng/Scraping-and-analysis-of-gastronomic-data"
+related: ["recipe-scraper"]
 ---
 
 ## Project Overview

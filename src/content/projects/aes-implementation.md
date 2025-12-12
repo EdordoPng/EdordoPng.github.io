@@ -7,6 +7,7 @@ badge: "Cryptography"
 tags: ["Python", "AES", "Cybersecurity", "Finite Fields", "Math"]
 lang: "ENG"
 url: "https://github.com/EdordoPng/AES_Implementation"
+related: ["dpa-analysis", "profiling-dl"]
 ---
 
 ## Project Overview

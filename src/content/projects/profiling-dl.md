@@ -7,6 +7,7 @@ badge: "AI Security"
 tags: ["TensorFlow", "Keras", "Deep Learning", "ASCAD", "Profiling"]
 lang: "ENG"
 url: "https://github.com/EdordoPng/profiling_deep_learning"
+related: ["dpa-analysis"]
 ---
 
 ## Project Overview

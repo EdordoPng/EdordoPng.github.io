@@ -4,9 +4,10 @@ description: "Implementation of Side-Channel Attacks on AES-128 using Power Anal
 pubDate: 2024-11-20
 heroImage: "/dpa-attack.png"
 badge: "Side-Channel Analysis"
-tags: ["Python", "DPA", "Cryptography", "Hardware Security", "NumPy"]
+tags: ["Python", "DPA", "Cryptography", "Hardware Security"]
 lang: "ENG"
-url: "https://github.com/EdordoPng/Differential_Power_Analysis" 
+url: "https://github.com/EdordoPng/Differential_Power_Analysis"
+related: ["aes-implementation", "profiling-dl"] 
 ---
 
 ## Project Overview
@@ -45,6 +46,9 @@ I attempted to attack the **AddRoundKey (ARK)** output directly (linear operatio
 * **Language:** Python 3.x
 * **Analysis:** NumPy (for vectorised statistical computations), Matplotlib
 * **Target:** TinyAES traces (Simulated/Captured power data)
+
+## Note 
+While this project focuses on Side-Channel attacks, the underlying cryptographic logic is based on my AES Implementation from Scratch.
 
 ---
 [cite_start]*Based on a differential attack using a Hamming Weight leakage model[cite: 635].*

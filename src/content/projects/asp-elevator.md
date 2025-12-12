@@ -7,6 +7,7 @@ badge: "Automated Reasoning"
 tags: ["Clingo", "ASP", "Logic Programming", "AI Planning"]
 lang: "ENG"
 url: "https://github.com/EdordoPng/ASP_Elevator"
+related: ["conformant-elevator"]
 ---
 
 ## Project Overview
