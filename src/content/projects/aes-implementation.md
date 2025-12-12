@@ -4,7 +4,7 @@ description: "Full Python implementation of the Advanced Encryption Standard (FI
 pubDate: 2024-12-13
 heroImage: "/aes-python.png"
 badge: "Cryptography"
-tags: ["Python", "AES", "Cybersecurity", "Finite Fields", "Math"]
+tags: ["Python", "AES", "Cybersecurity"]
 lang: "ENG"
 url: "https://github.com/EdordoPng/AES_Implementation"
 related: ["dpa-analysis", "profiling-dl"]

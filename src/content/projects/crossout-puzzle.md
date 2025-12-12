@@ -4,7 +4,7 @@ description: "Logic solver for grid puzzles using Answer Set Programming (Clingo
 pubDate: 2024-05-10
 heroImage: "/crossout-puzzle.png"
 badge: "Logic Programming"
-tags: ["Clingo", "ASP", "AI Ethics", "Puzzle Solving", "Steganography"]
+tags: ["Clingo", "ASP"]
 lang: "ENG"
 url: "https://github.com/EdordoPng/Cross_out_puzzle_solver"
 ---

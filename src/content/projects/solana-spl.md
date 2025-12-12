@@ -4,7 +4,7 @@ description: "Programmatic creation and management of SPL Tokens on the Solana D
 pubDate: 2024-02-15
 heroImage: "/solana-spl.png"
 badge: "Blockchain"
-tags: ["Solana", "TypeScript", "Web3.js", "SPL Token"]
+tags: ["Blockchain", "Solana", "TypeScript", "SPL Token"]
 lang: "ENG"
 url: "https://github.com/EdordoPng/MasterzBootcamp"
 ---

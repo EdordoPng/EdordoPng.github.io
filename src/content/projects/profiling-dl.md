@@ -4,7 +4,7 @@ description: "Advanced Side-Channel Profiling attack on the ASCAD dataset using 
 pubDate: 2024-10-15
 heroImage: "/profiling-dl.png"
 badge: "AI Security"
-tags: ["TensorFlow", "Keras", "Deep Learning", "ASCAD", "Profiling"]
+tags: ["Deep Learning","Profiling"]
 lang: "ENG"
 url: "https://github.com/EdordoPng/profiling_deep_learning"
 related: ["dpa-analysis"]
