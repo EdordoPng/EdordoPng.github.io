@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import HorizontalCard from "../components/HorizontalCard.astro";
 import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
 
 // 1. Recuperiamo tutti i progetti ordinati per data decrescente
 const posts = (await getCollection("projects")).sort(
@@ -20,71 +21,168 @@ posts.forEach(post => {
 const sortedTags = Object.keys(tagCounts).sort((a, b) => a.localeCompare(b));
 ---
 
-<BaseLayout title = "Projects" sideBarActiveItemID="projects">
-  <div>
-    <div class="text-3xl w-full font-bold mb-5">I Miei Progetti</div>
+<BaseLayout title="Projects" sideBarActiveItemID="projects">
+  
+  <div class="flex justify-between items-center mb-5">
+    <div class="text-3xl font-bold">I Miei Progetti</div>
+    
+    <button id="view-toggle-btn" class="btn btn-outline btn-sm" title="Cambia Vista">
+      <svg id="icon-list" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="block"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+      <svg id="icon-grid" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+    </button>
   </div>
 
   <div class="mb-8 flex flex-wrap gap-2" id="filter-container">
-    <button 
-      class="btn btn-outline btn-sm filter-btn btn-active" 
-      data-filter="all">
+    <button class="btn btn-outline btn-sm filter-btn btn-active" data-filter="all">
       Tutti
     </button>
-    
     {sortedTags.map((tag) => (
-      <button 
-        class="btn btn-outline btn-sm filter-btn" 
-        data-filter={tag}>
+      <button class="btn btn-outline btn-sm filter-btn" data-filter={tag}>
         {tag} <span class="text-xs opacity-70 ml-1">({tagCounts[tag]})</span>
       </button>
     ))}
   </div>
 
-  <div id="projects-grid">
+  <div id="projects-grid" class="flex flex-col gap-4 transition-all duration-300">
+    
     {posts.map((post) => (
       <div 
         class="project-item transition-all duration-300 ease-in-out" 
         data-tags={post.data.tags?.join(",") || ""}
       >
-        <HorizontalCard
-          title={post.data.title}
-          img={post.data.heroImage}
-          desc={post.data.description}
-          url={"/projects/" + post.slug}
-          target="_self"
-          badge={post.data.badge}
-          tags={post.data.tags}
-          lang={post.data.lang}
-        />
-        <div class="divider my-0"></div>
+        
+        <div class="view-list block">
+          <HorizontalCard
+            title={post.data.title}
+            img={post.data.heroImage}
+            desc={post.data.description}
+            url={"/projects/" + post.slug}
+            target="_self"
+            badge={post.data.badge}
+            tags={post.data.tags}
+            lang={post.data.lang}
+          />
+          <div class="divider my-0"></div>
+        </div>
+
+        <div class="view-grid hidden h-full">
+          <a href={"/projects/" + post.slug} class="group block h-full">
+            <div class="card bg-base-100 shadow-sm hover:shadow-xl transition-all duration-300 h-full border border-base-200">
+              <figure class="relative overflow-hidden aspect-video">
+                {post.data.heroImage && (
+                  <Image
+                    src={post.data.heroImage}
+                    width={750}
+                    height={422}
+                    format="webp"
+                    alt={post.data.title}
+                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                )}
+                {/* Badge Lingua sopra l'immagine */}
+                {post.data.lang && (
+                  <div class="absolute bottom-2 right-2 badge badge-neutral text-xs font-bold opacity-90">
+                    {post.data.lang}
+                  </div>
+                )}
+              </figure>
+              <div class="card-body p-4 text-center">
+                <h2 class="card-title justify-center text-lg font-bold group-hover:text-primary transition-colors">
+                  {post.data.title}
+                </h2>
+                {post.data.badge && <div class="badge badge-secondary mx-auto">{post.data.badge}</div>}
+              </div>
+            </div>
+          </a>
+        </div>
+
       </div>
     ))}
   </div>
 
   <script is:inline>
+    // --- LOGICA FILTRI (Mantenuta uguale) ---
+    const activeTags = new Set();
     const filterButtons = document.querySelectorAll('.filter-btn');
     const projectItems = document.querySelectorAll('.project-item');
 
     filterButtons.forEach(button => {
       button.addEventListener('click', () => {
-        // Gestione classe active
-        filterButtons.forEach(btn => btn.classList.remove('btn-active'));
-        button.classList.add('btn-active');
+        const tag = button.getAttribute('data-filter');
+        if (tag === 'all') {
+          activeTags.clear();
+        } else {
+          if (activeTags.has(tag)) activeTags.delete(tag);
+          else activeTags.add(tag);
+        }
 
-        const filterValue = button.getAttribute('data-filter');
+        // Update UI Bottoni
+        filterButtons.forEach(btn => {
+          const btnTag = btn.getAttribute('data-filter');
+          if (btnTag === 'all') {
+            activeTags.size === 0 ? btn.classList.add('btn-active') : btn.classList.remove('btn-active');
+          } else {
+            activeTags.has(btnTag) ? btn.classList.add('btn-active') : btn.classList.remove('btn-active');
+          }
+        });
 
+        // Applica Filtro
         projectItems.forEach(item => {
-          const itemTags = item.getAttribute('data-tags');
-          
-          if (filterValue === 'all' || itemTags.includes(filterValue)) {
-            item.style.display = 'block';
+          const itemTags = item.getAttribute('data-tags').split(',');
+          const isVisible = activeTags.size === 0 || itemTags.some(t => activeTags.has(t));
+          if (isVisible) {
+            item.style.display = 'block'; // Nota: display block va bene anche in griglia perché agisce sul wrapper
             setTimeout(() => item.style.opacity = '1', 50);
           } else {
             item.style.opacity = '0';
             setTimeout(() => item.style.display = 'none', 300);
           }
         });
+      });
+    });
+
+    // --- LOGICA CAMBIO VISTA (LISTA <-> GRIGLIA) ---
+    const toggleBtn = document.getElementById('view-toggle-btn');
+    const container = document.getElementById('projects-grid');
+    const iconList = document.getElementById('icon-list');
+    const iconGrid = document.getElementById('icon-grid');
+    
+    // Stato iniziale
+    let isGridView = false;
+
+    toggleBtn.addEventListener('click', () => {
+      isGridView = !isGridView;
+
+      // 1. Cambia Icona
+      if (isGridView) {
+        iconList.classList.add('hidden');
+        iconGrid.classList.remove('hidden');
+      } else {
+        iconList.classList.remove('hidden');
+        iconGrid.classList.add('hidden');
+      }
+
+      // 2. Cambia Layout Container
+      if (isGridView) {
+        // Passa a Grid (3 colonne su schermi medi/grandi)
+        container.classList.remove('flex', 'flex-col');
+        container.classList.add('grid', 'grid-cols-1', 'md:grid-cols-2', 'lg:grid-cols-3', 'gap-6');
+      } else {
+        // Torna a Lista
+        container.classList.remove('grid', 'grid-cols-1', 'md:grid-cols-2', 'lg:grid-cols-3', 'gap-6');
+        container.classList.add('flex', 'flex-col');
+      }
+
+      // 3. Cambia contenuto delle Card
+      const listCards = document.querySelectorAll('.view-list');
+      const gridCards = document.querySelectorAll('.view-grid');
+
+      listCards.forEach(card => {
+        isGridView ? card.classList.remove('block') || card.classList.add('hidden') : card.classList.remove('hidden') || card.classList.add('block');
+      });
+
+      gridCards.forEach(card => {
+        isGridView ? card.classList.remove('hidden') || card.classList.add('block') : card.classList.remove('block') || card.classList.add('hidden');
       });
     });
   </script>
