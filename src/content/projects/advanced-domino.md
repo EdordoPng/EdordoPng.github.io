@@ -4,7 +4,7 @@ description: "Solving a complex combinatorial optimization problem using Constra
 pubDate: 2024-06-01
 heroImage: "/advanced-domino.png"
 badge: "Optimization"
-tags: ["MiniZinc", "ASP", "Clingo", "Constraint Programming", "AI"]
+tags: ["Automated Reasoning", "Constraint Optimization Problem", "MiniZinc", "Answer Set Programming", "Clingo", "Constraint Programming", "AI"]
 lang: "ITA / ENG"
 url: "https://github.com/EdordoPng/advanced_domino"
 ---

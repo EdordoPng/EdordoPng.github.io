@@ -4,7 +4,7 @@ description: "Network Science project analyzing NBA assist dynamics (2020-2025) 
 pubDate: 2025-01-20
 heroImage: "/nba-network.png"
 badge: "Network Science"
-tags: ["R", "Network Science", "Graph Theory"]
+tags: ["R", "Data Science", "Network Science", "Graph Theory"]
 lang: "ITA / ENG"
 url: "https://github.com/EdordoPng/NBA"
 ---

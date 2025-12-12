@@ -4,7 +4,7 @@ description: "AI Planning project using Answer Set Programming (Clingo) to optim
 pubDate: 2024-04-10
 heroImage: "/asp-elevator.png"
 badge: "Automated Reasoning"
-tags: ["Clingo", "ASP", "Logic Programming", "AI Planning"]
+tags: ["Automated Reasoning", "Clingo", "Answer Set Programming", "Logic Programming", "Planning Problem"]
 lang: "ENG"
 url: "https://github.com/EdordoPng/ASP_Elevator"
 related: ["conformant-elevator"]

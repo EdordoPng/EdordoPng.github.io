@@ -4,7 +4,7 @@ description: "Advanced AI planning project addressing incomplete knowledge and u
 pubDate: 2024-05-20
 heroImage: "/conformant-elevator.png"
 badge: "Automated Reasoning"
-tags: ["Clingo", "ASP", "Uncertainty", "Robust AI"]
+tags: ["Automated Reasoning", "Conformant Planning Problem", "Clingo", "Answer Set Programming", "Uncertainty"]
 lang: "ENG"
 url: "https://github.com/EdordoPng/ASP_elevator_confromant_planning"
 related: ["asp-elevator"]
