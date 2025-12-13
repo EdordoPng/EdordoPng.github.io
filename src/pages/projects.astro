@@ -173,17 +173,6 @@ const uniqueBadges = Array.from(badgeSet).sort();
       'Automated Reasoning': '#F0F4C3',// Pastel Lime
       'Augmented Reality': '#D7CCC8',  // Light Beige/Stone
     };
-
-    // MAPPA 2: Colori Più Scuri (Stato Selezionato/Shade)
-    const SHADE_MAP = {
-      'Cybersecurity': '#4CAF50',     // Green
-      'Data Science': '#FF5722',       // Deep Orange
-      'Network Science': '#FFEB3B',   // Yellow
-      'Blockchain': '#673AB7',        // Deep Purple
-      'Assembly': '#FFC107',           // Amber
-      'Automated Reasoning': '#8BC34A',// Lime
-      'Augmented Reality': '#795548',  // Brown (Per un contrasto migliore sul chiaro)
-    };
     
     const activeTags = new Set();
     const activeBadges = new Set();
@@ -197,6 +186,7 @@ const uniqueBadges = Array.from(badgeSet).sort();
     // 2. FUNZIONI DI FILTRAGGIO & COLORAZIONE
     // ==========================================
     
+    // Funzione per applicare filtri (restaurata a selezione multipla sotto)
     function applyFilters() {
       // Determina il badge attivo per colorare
       const activeBadge = activeBadges.size === 1 ? Array.from(activeBadges)[0] : null;
@@ -206,12 +196,13 @@ const uniqueBadges = Array.from(badgeSet).sort();
         const itemTags = item.getAttribute('data-tags').split(',');
         const itemBadge = item.querySelector('.badge-secondary')?.textContent?.trim() || '';
 
-        // Filtro 1: Macro-Categoria (Badge)
+        // Filtro 1: Macro-Categoria (Badge) - Prioritario
         const isBadgeMatch = activeBadges.size === 0 || activeBadges.has(itemBadge);
 
-        // Filtro 2: Tag
+        // Filtro 2: Tag (Logica: Progetto ha almeno UNO dei tag selezionati)
         const isTagMatch = activeTags.size === 0 || itemTags.some(t => activeTags.has(t));
 
+        // VISIBILE solo se matchano entrambi
         const isVisible = isBadgeMatch && isTagMatch;
         
         // Applica visibilità
@@ -223,27 +214,34 @@ const uniqueBadges = Array.from(badgeSet).sort();
       updateTagStyles(activeBadge, activeColor);
     }
     
+    // Funzione per aggiornare stili e disabilitare i tag
     function updateTagStyles(activeBadge, activeColor) {
-        // Ottieni la shade (colore scuro)
-        const activeShade = activeBadge ? SHADE_MAP[activeBadge] : null;
 
         tagButtons.forEach(btn => {
             const btnTag = btn.getAttribute('data-filter');
             
-            // 1. Resetta gli stili di base e rimuovi TUTTI gli stati attivi predefiniti di Tailwind
+            // 1. Resetta gli stili di base e riabilita
             btn.style.borderColor = '';
             btn.style.backgroundColor = '';
             btn.style.color = '';
             btn.disabled = false;
-            // RIMUOVE CLASSE "btn-active" (e btn-primary) per lasciare il controllo al JS
-            btn.classList.remove('btn-active', 'btn-primary'); 
+            
+            // Applica o rimuovi lo stato 'btn-active'
+            const isTagSelected = activeTags.has(btnTag) || (btnTag === 'all' && activeTags.size === 0);
+            isTagSelected ? btn.classList.add('btn-active') : btn.classList.remove('btn-active');
             
             if (btnTag === 'all') return;
 
-            // Controlla se il tag è attivamente selezionato
-            const isSelected = activeTags.has(btnTag);
-
             if (activeBadge) {
+                // =============== STATO: MACRO-CATEGORIA ATTIVA (Blocco i Tag) ===============
+                
+                // Disabilita il bottone tag
+                btn.disabled = true;
+                
+                // Rimuove eventuali selezioni attive (visive e logiche)
+                btn.classList.remove('btn-active');
+                activeTags.delete(btnTag); 
+
                 let foundInMacro = false;
                 
                 // Controlla se il tag esiste all'interno della macro-categoria selezionata
@@ -256,42 +254,31 @@ const uniqueBadges = Array.from(badgeSet).sort();
                     }
                 });
                 
-                // 2. Disabilita, colora o applica ombra
-                if (!foundInMacro) {
-                    btn.disabled = true;
-                    btn.classList.add('opacity-40');
-                    activeTags.delete(btnTag); 
-                } else if (isSelected) {
-                    // STATO 1: Selezionato (Colore Scuro/Ombra) - CONTROLLO COMPLETO DEL JS
-                    btn.classList.remove('opacity-40');
-                    btn.style.borderColor = activeShade;
-                    btn.style.backgroundColor = activeShade;
-                    btn.style.color = '#FFFFFF'; // Testo bianco su colore scuro
-                } else {
-                    // STATO 2: Rilevante ma Non Selezionato (Colore Pastello)
+                // Colorazione per i tag rilevanti (solo a scopo visivo, sono disabilitati)
+                if (foundInMacro) {
                     btn.classList.remove('opacity-40');
                     btn.style.borderColor = activeColor;
                     btn.style.backgroundColor = activeColor;
                     btn.style.color = '#333333'; // Testo scuro su colore chiaro
+                } else {
+                    btn.classList.add('opacity-40');
                 }
+
             } else {
-                 // STATO 3: Nessuna Macro Attiva (Default)
-                 btn.classList.remove('opacity-40');
-                 if (isSelected) {
-                    // Selezione attiva senza macro: usa colore scuro generico per evidenziare
-                    btn.style.backgroundColor = '#333333';
-                    btn.style.color = '#FFFFFF';
-                    btn.style.borderColor = '#333333';
-                 } else {
-                    // Stato normale (btn-outline)
-                    btn.style.backgroundColor = '';
-                    btn.style.color = '';
-                    btn.style.borderColor = '';
-                 }
+                // =============== STATO: NESSUNA MACRO ATTIVA (Selezione Multipla Libera) ===============
+                
+                btn.classList.remove('opacity-40');
+                // Qui, se un tag è selezionato, mantiene lo stile di default di 'btn-active'
+                
+                // Rimuovi eventuali colorazioni precedenti
+                btn.style.borderColor = '';
+                btn.style.backgroundColor = '';
+                btn.style.color = '';
             }
         });
         
-        if (activeBadges.size > 0 && activeTags.size > 0) {
+        // Riaplica i filtri se un badge è stato disabilitato per forzare la selezione 'OR'
+        if (activeTags.size > 0 && activeBadges.size > 0) {
             applyFilters();
         }
     }
@@ -344,32 +331,30 @@ const uniqueBadges = Array.from(badgeSet).sort();
     });
 
 
-    // Listener Tag Filter (Ora Mutuo Esclusivo e usa solo stili JS)
+    // Listener Tag Filter (RIPRISTINATO: Selezione Multipla OR)
     tagButtons.forEach(button => {
       button.addEventListener('click', () => {
         const tag = button.getAttribute('data-filter');
-        if (button.disabled) return; 
+        if (button.disabled) return; // Ignora il click se il bottone è disabilitato (Macro attiva)
 
-        // 1. Logica di Selezione (Mutuo Esclusivo)
+        // 1. Logica di Selezione (OR Logico)
         if (tag === 'all') {
           activeTags.clear();
         } else {
-          if (activeTags.has(tag)) {
-            activeTags.delete(tag);
-          } else {
-            activeTags.clear();
-            activeTags.add(tag);
-          }
+          // Toggle del tag selezionato
+          if (activeTags.has(tag)) activeTags.delete(tag);
+          else activeTags.add(tag);
         }
         
-        // 2. Aggiorna UI Bottoni
+        // 2. Aggiorna UI Bottoni (Gestita in gran parte da updateTagStyles, qui solo toggle)
         tagButtons.forEach(btn => {
           const btnTag = btn.getAttribute('data-filter');
-          // Aggiorna lo stato 'btn-active' solo per il bottone 'Tutti' (che non ha colori dinamici)
           if (btnTag === 'all') {
             activeTags.size === 0 ? btn.classList.add('btn-active') : btn.classList.remove('btn-active');
-          } 
-          // Per gli altri tag, lo stile è gestito interamente da updateTagStyles, non da qui.
+          } else {
+            // Usa 'btn-active' di Tailwind per lo stile di selezione.
+            activeTags.has(btnTag) ? btn.classList.add('btn-active') : btn.classList.remove('btn-active');
+          }
         });
 
         applyFilters();
