@@ -4,7 +4,7 @@ import { Image } from "astro:assets";
 const tag_url = url.split("/").slice(0, -1).join("/") + "/tag";
 ---
 
-<div class="rounded-lg bg-base-100 hover:shadow-xl transition-all ease-in-out hover:scale-[102%] hover:bg-neutral hover:text-neutral-content">
+<div class="group rounded-lg bg-base-100 hover:shadow-xl transition-all ease-in-out hover:scale-[102%] hover:bg-neutral hover:text-neutral-content">
   <a href={url} target={target}>
     <div class="hero-content flex-col md:flex-row">
       {
@@ -41,6 +41,13 @@ const tag_url = url.split("/").slice(0, -1).join("/") + "/tag";
                 </a>
               ))
           }
+          {
+            lang && (
+              <div class="badge badge-neutral ml-2 group-hover:bg-base-100 group-hover:text-neutral">
+                {lang}
+              </div>
+              )
+            }
         </div>
       </div>
     </div>
