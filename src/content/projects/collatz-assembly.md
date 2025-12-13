@@ -4,7 +4,7 @@ description: "MIPS Assembly implementation of the famous 3n+1 problem, featuring
 pubDate: 2024-02-15
 heroImage: "/projects/collatz-assembly.png"
 badge: "Assembly"
-tags: ["Assembly", "MIPS", "Bitwise Operations"]
+tags: ["MIPS", "Bitwise Operations"]
 lang: "ITA / ENG"
 url: "https://github.com/EdordoPng/collatz-sequence-assembly"
 related: ["mips-calculator"]

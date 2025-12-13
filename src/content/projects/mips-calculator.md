@@ -4,7 +4,7 @@ description: "Low-level MIPS Assembly program that calculates min/max sum sets w
 pubDate: 2024-01-10
 heroImage: "/projects/mips-assembly.png"
 badge: "Assembly"
-tags: ["Assembly", "MIPS", "QtSPIM, MARS"]
+tags: ["MIPS", "QtSPIM, MARS"]
 lang: "ITA / ENG"
 url: "https://github.com/EdordoPng/sum-sets-calculator-assembly"
 related: ["collatz-assembly"]

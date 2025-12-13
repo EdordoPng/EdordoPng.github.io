@@ -4,7 +4,7 @@ description: "A comprehensive showcase of various Augmented Reality filters and 
 pubDate: 2022-01-01
 heroImage: "/projects/spark-ar-cover.png"
 badge: "Augmented Reality"
-tags: ["Spark AR", "Augmented Reality", "JavaScript", "Meta"]
+tags: ["Spark AR", "AR and VR", "JavaScript", "Meta"]
 lang: "ITA / ENG"
 url: "https://edordopng.github.io/contact/" 
 related: []

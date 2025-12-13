@@ -4,7 +4,7 @@ description: "End-to-end strategic direction for a major Italian Streetwear bran
 pubDate: 2023-05-04
 heroImage: "/projects/dolly-nft.png"
 badge: "Blockchain"
-tags: ["NFT", "Project Manager", "Blockchain", "Ethereum","Java", "Product Management"]
+tags: ["NFT", "Project Manager", "Ethereum","Java", "Product Management"]
 lang: "ITA / ENG"
 url: "https://www.dollynoire.com/it/pages/nfts"
 related: [""]

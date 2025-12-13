@@ -4,7 +4,7 @@ description: "Automated Python tool for scraping and structuring gastronomic dat
 pubDate: 2022-10-15
 heroImage: "/projects/recipe-scraper.png"
 badge: "Data Science"
-tags: ["Python", "Web Scraping", "Data Science", "Data Mining"]
+tags: ["Python", "Web Scraping", "Data Mining"]
 lang: "ITA / ENG"
 url: "https://github.com/EdordoPng/RecipeScraper"
 related: ["gastronomic-scraping"]

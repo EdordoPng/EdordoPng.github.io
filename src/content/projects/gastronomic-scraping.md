@@ -4,7 +4,7 @@ description: "End-to-end pipeline for scraping, analyzing, and matching gastrono
 pubDate: 2023-09-01
 heroImage: "/projects/post_img.webp" 
 badge: "Data Science"
-tags: ["Python", "Web Scraping", "Data Science"]
+tags: ["Python", "Web Scraping"]
 lang: "ITA"
 url: "https://github.com/EdordoPng/Scraping-and-analysis-of-gastronomic-data"
 related: ["recipe-scraper"]

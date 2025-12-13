@@ -4,7 +4,7 @@ description: "Comparative study of Automated Planning frameworks (PDDL, ASP, Ecl
 pubDate: 2024-06-15
 heroImage: "/projects/cannolo-planning.png"
 badge: "Automated Reasoning"
-tags: ["Automated Reasoning", "PDDL", "Reverse Planning","Universally Reversible Action", "Answer Set Programming", "Eclingo", "Clingo", "DLV^K","K Language", "Epistemic Logic"]
+tags: ["PDDL", "Reverse Planning","Universally Reversible Action", "Answer Set Programming", "Eclingo", "Clingo", "DLV^K","K Language", "Epistemic Logic"]
 lang: "ENG"
 url: "https://github.com/EdordoPng/cannolo-reverse-planning"
 ---

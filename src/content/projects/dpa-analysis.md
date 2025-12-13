@@ -4,7 +4,7 @@ description: "Implementation of Side-Channel Attacks on AES-128 using Power Anal
 pubDate: 2024-11-20
 heroImage: "/projects/dpa-attack.png"
 badge: "Cybersecurity"
-tags: ["Python", "Differential Power Analysis (DPA)", "Side-Channel Attacks", "Advanced Encryption Standard (AES)", "Cryptography", "Cybersecurity", "Hardware Security", "Leakage Model"]
+tags: ["Python", "Differential Power Analysis (DPA)", "Side-Channel Attacks", "Advanced Encryption Standard (AES)", "Cryptography", "Hardware Security", "Leakage Model"]
 lang: "ENG"
 url: "https://github.com/EdordoPng/Differential_Power_Analysis"
 related: ["aes-implementation", "profiling-dl"] 

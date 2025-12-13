@@ -4,7 +4,7 @@ description: "A lossless sports betting and social engagement platform built on 
 pubDate: 2024-03-17
 heroImage: "/projects/eth-global-london.jpg"
 badge: "Blockchain"
-tags: ["Blockchain", "Ethereum", "Solidity", "Hardhat", "Chiliz", "DeFi", "Hackathon"]
+tags: ["Ethereum", "Solidity", "Hardhat", "Chiliz", "DeFi", "Hackathon"]
 lang: "ENG"
 url: "https://github.com/WeDev00/Bestliz"
 related: ["aztec-swap"]
