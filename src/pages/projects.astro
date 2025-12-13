@@ -33,9 +33,6 @@ const uniqueBadges = Array.from(badgeSet).sort();
 ---
 
 <BaseLayout title="Projects" sideBarActiveItemID="projects">
-  
-
-  ...
 
   <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-5 gap-4">
     <div class="text-3xl font-bold">My Projects</div>
@@ -166,20 +163,15 @@ const uniqueBadges = Array.from(badgeSet).sort();
   </div>
 
 <script is:inline>
-    // ==========================================
-    // 1. CONFIGURAZIONE & UTILITY
-    // ==========================================
     const COLOR_MAP = {
-      'Cryptography': '#B3E5FC',      // Light Blue
+      // Già presenti:
       'Cybersecurity': '#C8E6C9',     // Light Green
       'Data Science': '#FFCCBC',       // Light Orange
       'Network Science': '#FFF9C4',   // Light Yellow
       'Blockchain': '#D1C4E9',        // Light Purple
-      'SportFi': '#FFCDD2',           // Light Red/Pink
-      'ZK Privacy': '#E1BEE7',         // Pastel Magenta
-      'DeSci': '#A7FFEB',             // Light Cyan
-      'AR Design': '#F8BBD0',         // Pastel Pink
-      'Low Level': '#CFD8DC',         // Light Gray
+      'Assembly': '#FFECB3',           // Pastel Yellow/Gold
+      'Automated Reasoning': '#F0F4C3',// Pastel Lime
+      'Augmented Reality': '#D7CCC8',  // Light Beige/Stone
     };
     
     const activeTags = new Set();
