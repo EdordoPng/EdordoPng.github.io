@@ -35,29 +35,9 @@ const uniqueBadges = Array.from(badgeSet).sort();
 
 <BaseLayout title="Projects" sideBarActiveItemID="projects">
   
-  <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-5 gap-4">
-    <div class="text-3xl font-bold">My Projects</div>
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-5 gap-4">
+    <div class="text-3xl font-bold">I Miei Progetti</div>
     
-    <div class="mb-5 border-b border-base-300 pb-4">
-    <div class="text-sm font-semibold mb-2 opacity-70">Filter by Macro-Category:</div>
-    <div class="flex flex-wrap gap-2" id="badge-filter-container">
-      <button class="btn btn-primary btn-sm badge-filter-btn btn-active" data-badge-filter="all">
-        Tutte le Categorie
-      </button>
-      
-      {uniqueBadges.map((badge) => (
-        <button 
-          class="btn btn-outline btn-sm badge-filter-btn" 
-          data-badge-filter={badge}
-        >
-          {badge}
-        </button>
-      ))}
-    </div>
-  </div>
-
-  <div class="mb-8">
-
     <div class="flex gap-2 w-full md:w-auto justify-end">
       <div class="dropdown dropdown-end">
         <div tabindex="0" role="button" class="btn btn-outline btn-sm m-1" title="Ordina Tag">
@@ -74,6 +54,24 @@ const uniqueBadges = Array.from(badgeSet).sort();
         <svg id="icon-list" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="block"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
         <svg id="icon-grid" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
       </button>
+    </div>
+  </div>
+
+  <div class="mb-5 border-b border-base-300 pb-4">
+    <div class="text-sm font-semibold mb-2 opacity-70">Filtra per Macro-Categoria:</div>
+    <div class="flex flex-wrap gap-2" id="badge-filter-container">
+      <button class="btn btn-primary btn-sm badge-filter-btn btn-active" data-badge-filter="all">
+        Tutte le Categorie
+      </button>
+      
+      {uniqueBadges.map((badge) => (
+        <button 
+          class="btn btn-outline btn-sm badge-filter-btn" 
+          data-badge-filter={badge}
+        >
+          {badge}
+        </button>
+      ))}
     </div>
   </div>
 
