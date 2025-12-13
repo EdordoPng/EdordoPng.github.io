@@ -230,11 +230,13 @@ const uniqueBadges = Array.from(badgeSet).sort();
         tagButtons.forEach(btn => {
             const btnTag = btn.getAttribute('data-filter');
             
-            // 1. Resetta gli stili di base
+            // 1. Resetta gli stili di base e rimuovi TUTTI gli stati attivi predefiniti di Tailwind
             btn.style.borderColor = '';
             btn.style.backgroundColor = '';
             btn.style.color = '';
             btn.disabled = false;
+            // RIMUOVE CLASSE "btn-active" (e btn-primary) per lasciare il controllo al JS
+            btn.classList.remove('btn-active', 'btn-primary'); 
             
             if (btnTag === 'all') return;
 
@@ -257,11 +259,10 @@ const uniqueBadges = Array.from(badgeSet).sort();
                 // 2. Disabilita, colora o applica ombra
                 if (!foundInMacro) {
                     btn.disabled = true;
-                    btn.classList.remove('btn-active');
                     btn.classList.add('opacity-40');
                     activeTags.delete(btnTag); 
                 } else if (isSelected) {
-                    // STATO 1: Selezionato (Colore Scuro/Ombra)
+                    // STATO 1: Selezionato (Colore Scuro/Ombra) - CONTROLLO COMPLETO DEL JS
                     btn.classList.remove('opacity-40');
                     btn.style.borderColor = activeShade;
                     btn.style.backgroundColor = activeShade;
@@ -277,12 +278,15 @@ const uniqueBadges = Array.from(badgeSet).sort();
                  // STATO 3: Nessuna Macro Attiva (Default)
                  btn.classList.remove('opacity-40');
                  if (isSelected) {
-                    // Seleziona scuro se nessun macro-filtro è attivo (per mantenere visibilità)
+                    // Selezione attiva senza macro: usa colore scuro generico per evidenziare
                     btn.style.backgroundColor = '#333333';
                     btn.style.color = '#FFFFFF';
+                    btn.style.borderColor = '#333333';
                  } else {
+                    // Stato normale (btn-outline)
                     btn.style.backgroundColor = '';
                     btn.style.color = '';
+                    btn.style.borderColor = '';
                  }
             }
         });
@@ -340,7 +344,7 @@ const uniqueBadges = Array.from(badgeSet).sort();
     });
 
 
-    // Listener Tag Filter (Ora Mutuo Esclusivo)
+    // Listener Tag Filter (Ora Mutuo Esclusivo e usa solo stili JS)
     tagButtons.forEach(button => {
       button.addEventListener('click', () => {
         const tag = button.getAttribute('data-filter');
@@ -350,11 +354,9 @@ const uniqueBadges = Array.from(badgeSet).sort();
         if (tag === 'all') {
           activeTags.clear();
         } else {
-          // Se il tag è già selezionato, lo deseleziona (toggle).
           if (activeTags.has(tag)) {
             activeTags.delete(tag);
           } else {
-            // Deseleziona tutti gli altri, poi seleziona solo il nuovo tag.
             activeTags.clear();
             activeTags.add(tag);
           }
@@ -363,12 +365,11 @@ const uniqueBadges = Array.from(badgeSet).sort();
         // 2. Aggiorna UI Bottoni
         tagButtons.forEach(btn => {
           const btnTag = btn.getAttribute('data-filter');
-          // Disattiva il bottone 'Tutti' se ci sono filtri attivi
+          // Aggiorna lo stato 'btn-active' solo per il bottone 'Tutti' (che non ha colori dinamici)
           if (btnTag === 'all') {
             activeTags.size === 0 ? btn.classList.add('btn-active') : btn.classList.remove('btn-active');
-          } else {
-            activeTags.has(btnTag) ? btn.classList.add('btn-active') : btn.classList.remove('btn-active');
-          }
+          } 
+          // Per gli altri tag, lo stile è gestito interamente da updateTagStyles, non da qui.
         });
 
         applyFilters();
