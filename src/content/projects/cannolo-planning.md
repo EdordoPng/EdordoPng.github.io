@@ -2,7 +2,7 @@
 title: "Reverse Planning & Epistemic Reasoning"
 description: "Comparative study of Automated Planning frameworks (PDDL, ASP, Eclingo, DLV^K) applied to Universally Reversible Actions using a custom domain."
 pubDate: 2024-06-15
-heroImage: "/cannolo-planning.png"
+heroImage: "/projects/cannolo-planning.png"
 badge: "AI Research"
 tags: ["Automated Reasoning", "PDDL", "Reverse Planning","Universally Reversible Action", "Answer Set Programming", "Eclingo", "Clingo", "DLV^K","K Language", "Epistemic Logic"]
 lang: "ENG"

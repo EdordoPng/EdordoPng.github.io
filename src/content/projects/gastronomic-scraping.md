@@ -2,7 +2,7 @@
 title: "Gastronomic Data Analysis"
 description: "End-to-end pipeline for scraping, analyzing, and matching gastronomic datasets using Fuzzy Logic and Cosine Similarity."
 pubDate: 2023-09-01
-heroImage: "/post_img.webp" 
+heroImage: "/projects/post_img.webp" 
 badge: "Data Science"
 tags: ["Python", "Web Scraping", "Data Science"]
 lang: "ITA"

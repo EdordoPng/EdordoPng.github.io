@@ -2,7 +2,7 @@
 title: "Deep Learning for SCA Profiling"
 description: "Advanced Side-Channel Profiling attack on the ASCAD dataset using Multi-Layer Perceptrons (MLP) and Convolutional Neural Networks (CNN)."
 pubDate: 2024-10-15
-heroImage: "/profiling-dl.png"
+heroImage: "/projects/profiling-dl.png"
 badge: "AI Security"
 tags: ["Python", "Deep Learning", "Cryptography", "Cybersecurity", "Profiling", "Leakage Exfiltration"]
 lang: "ENG"

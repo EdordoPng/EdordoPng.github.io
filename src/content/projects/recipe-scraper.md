@@ -2,7 +2,7 @@
 title: "Recipe Web Scraper"
 description: "Automated Python tool for scraping and structuring gastronomic data into JSON datasets with configurable dormancy and course selection."
 pubDate: 2022-10-15
-heroImage: "/recipe-scraper.png"
+heroImage: "/projects/recipe-scraper.png"
 badge: "Automation"
 tags: ["Python", "Web Scraping", "Data Science", "Data Mining"]
 lang: "ITA / ENG"

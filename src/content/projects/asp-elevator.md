@@ -2,7 +2,7 @@
 title: "Smart Elevator Control with ASP"
 description: "AI Planning project using Answer Set Programming (Clingo) to optimize multi-elevator logistics using both Single-Shot and Multi-Shot encodings."
 pubDate: 2024-04-10
-heroImage: "/asp-elevator.png"
+heroImage: "/projects/asp-elevator.png"
 badge: "Automated Reasoning"
 tags: ["Automated Reasoning", "Clingo", "Answer Set Programming", "Logic Programming", "Planning Problem"]
 lang: "ENG"

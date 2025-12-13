@@ -2,7 +2,7 @@
 title: "Differential Power Analysis (DPA)"
 description: "Implementation of Side-Channel Attacks on AES-128 using Power Analysis. Comparative study of Correlation vs. Difference of Means (DoM) distinguishers."
 pubDate: 2024-11-20
-heroImage: "/dpa-attack.png"
+heroImage: "/projects/dpa-attack.png"
 badge: "Side-Channel Analysis"
 tags: ["Python", "Differential Power Analysis (DPA)", "Side-Channel Attacks", "Advanced Encryption Standard (AES)", "Cryptography", "Cybersecurity", "Hardware Security", "Leakage Model"]
 lang: "ENG"
