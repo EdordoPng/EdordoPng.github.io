@@ -2,7 +2,7 @@
 title: "NBA Network Analysis"
 description: "Network Science project analyzing NBA assist dynamics (2020-2025) using R, Graph Theory, and Centrality metrics."
 pubDate: 2025-01-20
-heroImage: "/projects/nba-network.png"
+heroImage: "/projects/basket.png"
 badge: "Network Science"
 tags: ["R", "Data Science", "Network Science", "Graph Theory"]
 lang: "ITA / ENG"

@@ -93,7 +93,7 @@ const sortedTags = Object.keys(tagCounts).sort((a, b) => {
 
         <div class="view-grid hidden h-full">
           <a href={"/projects/" + post.slug} class="group block h-full">
-            <div class="card bg-base-100 shadow-sm hover:shadow-xl transition-all duration-300 h-full border border-base-200">
+            <div class="card bg-base-100 shadow-sm hover:shadow-xl transition-all duration-300 h-full border border-base-200 hover:bg-neutral hover:text-neutral-content">
               <figure class="relative overflow-hidden aspect-video">
                 {post.data.heroImage && (
                   <Image
