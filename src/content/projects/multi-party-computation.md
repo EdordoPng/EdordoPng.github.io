@@ -4,7 +4,7 @@ description: "Implementation of Yao's Garbled Circuits protocol for secure Multi
 pubDate: 2024-03-20
 heroImage: "/projects/mpc.jpg"
 badge: "Cybersecurity"
-tags: ["Python", "Cryptography","Multi-Party Computation (MPC)", "Yao's Garbled Circuits", "Oblivious Transfer", "Boolean Circuits"]
+tags: ["Cryptography","Multi-Party Computation (MPC)"]
 lang: "ENG"
 url: "https://github.com/EdordoPng/multi-party-computation"
 ---

@@ -4,7 +4,7 @@ description: "Decentralized Science (DeSci) platform empowering users to own and
 pubDate: 2024-06-15
 heroImage: "/projects/masterz-sol.jpg"
 badge: "Blockchain"
-tags: ["Solana", "React", "Python", "Cryptography", "NFT"]
+tags: ["Solana", "Cryptography", "NFT"]
 lang: "ITA / ENG"
 url: "https://github.com/mm-110/dataminder"
 related: ["solana-program"]

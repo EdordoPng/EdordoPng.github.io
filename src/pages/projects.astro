@@ -77,6 +77,7 @@ const uniqueBadges = Array.from(badgeSet).sort();
   <div class="mb-8">
 
   <div class="mb-8">
+
     <div class="flex flex-wrap gap-2" id="filter-container">
       <button class="btn btn-outline btn-sm filter-btn btn-active" data-filter="all">
         Tutti
@@ -85,7 +86,8 @@ const uniqueBadges = Array.from(badgeSet).sort();
       {sortedTags.map((tag) => (
         <button 
           class="btn btn-outline btn-sm filter-btn tag-btn" 
-          data-filter={tag}
+          
+[cite: 21] data-filter={tag}
           data-name={tag}
           data-count={tagCounts[tag]}
         >
@@ -95,9 +97,11 @@ const uniqueBadges = Array.from(badgeSet).sort();
     </div>
 
     {sortedTags.length > 10 && (
-      <button id="expand-tags-btn" class="btn btn-ghost btn-xs mt-2 w-full text-opacity-50 hover:text-opacity-100">
-        Show {sortedTags.length - 10} more tag ▼
-      </button>
+      <div class="flex justify-start mt-2">
+        <button id="toggle-advanced-filters" class="btn btn-ghost btn-sm text-sm opacity-80">
+          Show Advanced Filters
+        </button>
+      </div>
     )}
   </div>
 
@@ -395,7 +399,7 @@ const uniqueBadges = Array.from(badgeSet).sort();
     // ==========================================
     // 5. LOGICA ESPANSIONE TAG (Show More/Less) - Invariata
     // ==========================================
-    const expandBtn = document.getElementById('expand-tags-btn');
+    const expandBtn = document.getElementById('toggle-advanced-filters');
     const filterContainer = document.getElementById('filter-container');
     let isTagsExpanded = false;
     const TAG_LIMIT = 10;
@@ -412,7 +416,7 @@ const uniqueBadges = Array.from(badgeSet).sort();
       });
       if (expandBtn) {
         const remainingTags = tagButtons.length - TAG_LIMIT;
-        expandBtn.innerHTML = isTagsExpanded ? 'Show Less ▲' : `Show ${remainingTags} more tag ▼`;
+        expandBtn.innerHTML = isTagsExpanded ? 'Hide Advanced Filters ▲' : `Show Advanced Filters`;
       }
     }
 
