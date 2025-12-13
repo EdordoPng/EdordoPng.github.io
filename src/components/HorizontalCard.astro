@@ -1,12 +1,14 @@
 ---
 const { title, img, desc, url, badge, tags, target = "_blank", lang } = Astro.props;
 import { Image } from "astro:assets";
-const tag_url = url.split("/").slice(0, -1).join("/") + "/tag";
 ---
 
-<div class="group rounded-lg bg-base-100 hover:shadow-xl transition-all ease-in-out hover:scale-[102%] hover:bg-neutral hover:text-neutral-content">
+<div
+  class="group rounded-lg bg-base-100 hover:shadow-xl transition-all ease-in-out hover:scale-[102%] hover:bg-neutral hover:text-neutral-content"
+>
   <a href={url} target={target}>
     <div class="hero-content flex-col md:flex-row">
+      
       {
         img && (
           <div class="relative shrink-0">
@@ -18,37 +20,36 @@ const tag_url = url.split("/").slice(0, -1).join("/") + "/tag";
               alt={title}
               class="max-w-full md:max-w-[13rem] rounded-lg aspect-video object-cover"
             />
-             {lang && (
-              <span class="absolute bottom-1 right-1 badge badge-neutral text-xs opacity-90 font-bold uppercase border-none">
+            {lang && (
+              <div class="absolute bottom-2 right-2 badge badge-neutral text-xs font-bold opacity-90 group-hover:bg-base-100 group-hover:text-neutral">
                 {lang}
-              </span>
+              </div>
             )}
           </div>
         )
       }
+      
       <div class="grow w-full">
         <h1 class="text-xl font-bold">
           {title}
-          {badge && <div class="badge badge-secondary mx-2">{badge}</div>}
+          {badge && (
+            <div class="badge badge-secondary mx-2 group-hover:bg-base-100 group-hover:text-neutral">
+              {badge}
+            </div>
+          )}
         </h1>
         <p class="py-1 text-1xl">{desc}</p>
+        
         <div class="card-actions justify-end">
           {
             tags &&
               tags.map((tag) => (
-                <a href={`${tag_url}/${tag}`} class="badge badge-outline">
+                <div class="badge badge-outline">
                   {tag}
-                </a>
+                </div>
               ))
           }
-          {
-            lang && (
-              <div class="badge badge-neutral ml-2 group-hover:bg-base-100 group-hover:text-neutral">
-                {lang}
-              </div>
-              )
-            }
-        </div>
+          </div>
       </div>
     </div>
   </a>

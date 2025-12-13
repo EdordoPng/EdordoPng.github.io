@@ -119,7 +119,11 @@ const sortedTags = Object.keys(tagCounts).sort((a, b) => {
                   {post.data.title}
                 </h2>
                 
-                {post.data.badge && <div class="badge badge-secondary mx-auto">{post.data.badge}</div>}
+                {post.data.badge && (
+                  <div class="badge badge-secondary mx-auto group-hover:bg-base-100 group-hover:text-neutral">
+                    {post.data.badge}
+                  </div>
+                )}
               </div>
             </div>
           </a>
