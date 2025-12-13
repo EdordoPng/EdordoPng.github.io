@@ -3,8 +3,8 @@ title: "AztecSwap"
 description: "Privacy-first decentralized exchange prototype built using Noir (ZK-DSL). Finalist and Bounty Winner at ETH London 2023."
 pubDate: 2023-10-29
 heroImage: "/projects/eth-london.jpg"
-badge: "ZK Privacy"
-tags: ["Zero-Knowledge", "DeFi", "Ethereum", "Hackathon"]
+badge: "Blockchain"
+tags: ["Blockchain", "Solidity","Zero-Knowledge", "DeFi", "Ethereum", "Hackathon"]
 lang: "ENG"
 url: "https://github.com/london-hackers/AztecSwap" 
 related: ["mpc-garbled"]

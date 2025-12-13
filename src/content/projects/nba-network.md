@@ -7,6 +7,7 @@ badge: "Network Science"
 tags: ["R", "Data Science", "Network Science", "Graph Theory"]
 lang: "ITA / ENG"
 url: "https://github.com/EdordoPng/NBA"
+related: ["network-science"]
 ---
 
 ## Project Overview

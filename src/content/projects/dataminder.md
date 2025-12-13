@@ -3,7 +3,7 @@ title: "DataMinder DeSci Platform"
 description: "Decentralized Science (DeSci) platform empowering users to own and monetize their medical data via encrypted Solana NFTs."
 pubDate: 2024-06-15
 heroImage: "/projects/masterz-sol.jpg"
-badge: "DeSci"
+badge: "Blockchain"
 tags: ["Blockchain", "Solana", "React", "Python", "Cryptography", "NFT"]
 lang: "ITA / ENG"
 url: "https://github.com/mm-110/dataminder"

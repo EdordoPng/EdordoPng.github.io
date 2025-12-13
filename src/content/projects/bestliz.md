@@ -49,3 +49,5 @@ This project was built by a diverse, international team combining different back
 * **Edoardo Diana:** Product Strategy & Smart Contract Logic.
 * **Marco Sorrentino:** Lead Solidity Developer ([LinkedIn](https://www.linkedin.com/in/marco-sorrentino-23b069193) | [GitHub](https://github.com/WeDev00)).
 * **International Teammates:** Collaborated with two talented developers from **Singapore** and **India**, managing time zones and cross-cultural communication to deliver the MVP.
+
+<img src="/projects/eth-global-london-foto.jpg" alt="Part of the Team" class="rounded-xl shadow-lg my-6 w-full object-cover" />
