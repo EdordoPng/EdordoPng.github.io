@@ -3,8 +3,8 @@ title: "AES Encryption from Scratch"
 description: "Full Python implementation of the Advanced Encryption Standard (FIPS 197), featuring custom Finite Field arithmetic, dynamic S-Box generation, and side-channel analysis."
 pubDate: 2024-02-15
 heroImage: "/projects/AES-encryption.png"
-badge: "Cryptography"
-tags: ["Python", "Advanced Encryption Standard (AES)", "Galois Finite Field", "Cybersecurity"]
+badge: "Cybersecurity"
+tags: ["Python", "Advanced Encryption Standard (AES)", "Cryptography", "Galois Finite Field", "Cybersecurity"]
 lang: "ENG"
 url: "https://github.com/EdordoPng" 
 related: ["dpa-attack"]

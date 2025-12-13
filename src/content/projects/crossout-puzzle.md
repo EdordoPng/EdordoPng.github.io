@@ -3,7 +3,7 @@ title: "Cross-out Puzzle Solver (ASP)"
 description: "Logic solver for grid puzzles using Answer Set Programming (Clingo), featuring ethical analysis on steganography and military applications."
 pubDate: 2024-05-10
 heroImage: "/projects/crossout-puzzle.png"
-badge: "Logic Programming"
+badge: "Automated Reasoning"
 tags: ["Automated Reasoning", "Clingo", "Answer Set Programming"]
 lang: "ENG"
 url: "https://github.com/EdordoPng/Cross_out_puzzle_solver"

@@ -3,10 +3,10 @@ title: "Augmented Reality Filter Collection"
 description: "A comprehensive showcase of various Augmented Reality filters and effects developed for Instagram and Facebook using Meta Spark AR Studio."
 pubDate: 2022-01-01
 heroImage: "/projects/spark-ar-cover.png"
-badge: "AR Design"
-tags: ["Spark AR", "Augmented Reality", "Design", "JavaScript", "Meta"]
+badge: "Augmented Reality"
+tags: ["Spark AR", "Augmented Reality", "JavaScript", "Meta"]
 lang: "ITA / ENG"
-url: "https://instagram.com/iltuoaccount" 
+url: "https://edordopng.github.io/contact/" 
 related: []
 ---
 
@@ -33,20 +33,16 @@ Di seguito sono mostrati alcuni dei filtri più popolari o complessi sviluppati,
 *Focus: Face Tracking & Texture Switching*
 Questo progetto è una serie di effetti che applicano occhi iconici dell'anime, dimostrando una gestione accurata della mesh facciale e lo switching di texture ad alta risoluzione.
 <img src="/projects/filtro1.jpg" alt="Copertina del filtro AR Naruto Eyes" class="rounded-xl shadow-lg my-6 w-full object-cover" />
-*(Nota: Carica l'immagine `All_Naruto_Eyes.psd` convertita in webp/png come `naruto-eyes-cover.webp`.)*
 
 ### Animal Eyes
-*Focus: Example Filter*
 
 <img src="/projects/filtro2.jpg" alt="Copertina del filtro Animal Eyes" class="rounded-xl shadow-lg my-6 w-full object-cover" />
 
 ### Big Nose
-*Focus: Example Filter*
 
 <img src="/projects/filtro3.jpg" alt="Copertina del filtro Big Nose" class="rounded-xl shadow-lg my-6 w-full object-cover" />
 
 ### That Color
-*Focus: Example Filter*
 
 <img src="/projects/filtro4.jpg" alt="Copertina del filtro That Color" class="rounded-xl shadow-lg my-6 w-full object-cover" />
 

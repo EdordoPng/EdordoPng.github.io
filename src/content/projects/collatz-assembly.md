@@ -3,7 +3,7 @@ title: "Collatz Sequence & Binary Analysis"
 description: "MIPS Assembly implementation of the famous 3n+1 problem, featuring real-time bitwise analysis and Hamming weight calculation."
 pubDate: 2024-02-15
 heroImage: "/projects/collatz-assembly.png"
-badge: "Low Level"
+badge: "Assembly"
 tags: ["Assembly", "MIPS", "Bitwise Operations"]
 lang: "ITA / ENG"
 url: "https://github.com/EdordoPng/collatz-sequence-assembly"

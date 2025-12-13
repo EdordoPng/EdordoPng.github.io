@@ -3,7 +3,7 @@ title: "Advanced Domino Placement (COP)"
 description: "Solving a complex combinatorial optimization problem using Constraint Programming (MiniZinc) and Answer Set Programming (ASP/Clingo)."
 pubDate: 2024-06-01
 heroImage: "/projects/advanced-domino.png"
-badge: "Optimization"
+badge: "Automated Reasoning"
 tags: ["Automated Reasoning", "Constraint Optimization Problem", "MiniZinc", "Answer Set Programming", "Clingo", "Constraint Programming", "AI"]
 lang: "ITA / ENG"
 url: "https://github.com/EdordoPng/advanced_domino"
