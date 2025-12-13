@@ -41,7 +41,7 @@ const uniqueBadges = Array.from(badgeSet).sort();
       <div class="dropdown dropdown-end">
         <div tabindex="0" role="button" class="btn btn-outline btn-sm m-1" title="Ordina Tag">
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M7 12h10"/><path d="M10 18h4"/></svg>
-          <span class="hidden md:inline ml-1">Ordina</span>
+          <span class="hidden md:inline ml-1">Order</span>
         </div>
         <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 border border-base-200">
           <li><a id="sort-count">📊 Amount of (Max-Min)</a></li>
@@ -57,7 +57,7 @@ const uniqueBadges = Array.from(badgeSet).sort();
   </div>
 
   <div class="mb-5 border-b border-base-300 pb-4">
-    <div class="text-sm font-semibold mb-2 opacity-70">Filtra per Macro-Categoria:</div>
+    <div class="text-sm font-semibold mb-2 opacity-70">May select 1 Macro-Category:</div>
     <div class="flex flex-wrap gap-2" id="badge-filter-container">
       <button class="btn btn-primary btn-sm badge-filter-btn btn-active" data-badge-filter="all">
         Tutte le Categorie
@@ -96,7 +96,7 @@ const uniqueBadges = Array.from(badgeSet).sort();
 
     {sortedTags.length > 10 && (
       <button id="expand-tags-btn" class="btn btn-ghost btn-xs mt-2 w-full text-opacity-50 hover:text-opacity-100">
-        Mostra altri {sortedTags.length - 10} tag ▼
+        Show {sortedTags.length - 10} more tag ▼
       </button>
     )}
   </div>
