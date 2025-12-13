@@ -48,6 +48,3 @@ I attempted to attack the **AddRoundKey (ARK)** output directly (linear operatio
 
 ## Note 
 While this project focuses on Side-Channel attacks, the underlying cryptographic logic is based on my AES Implementation from Scratch.
-
----
-[cite_start]*Based on a differential attack using a Hamming Weight leakage model[cite: 635].*
