@@ -2,7 +2,7 @@
 title: "Differential Power Analysis (DPA)"
 description: "Implementation of Side-Channel Attacks on AES-128 using Power Analysis. Comparative study of Correlation vs. Difference of Means (DoM) distinguishers."
 pubDate: 2024-11-20
-heroImage: "/projects/dpa-attack.png"
+heroImage: "/projects/dpa.png"
 badge: "Cybersecurity"
 tags: ["Python", "Differential Power Analysis (DPA)", "Side-Channel Attacks", "Advanced Encryption Standard (AES)", "Cryptography", "Hardware Security", "Leakage Model"]
 lang: "ENG"
@@ -22,7 +22,6 @@ I implemented and benchmarked three distinct attack vectors:
 
 ### 1. Bit-Level Leakage Model
 Instead of attacking full bytes, I targeted individual bits of the **S-Box output** (Intermediate Value).
-* [cite_start]**Technique:** Used `shift_and_get_lsb` to isolate bits and build a Hamming Weight leakage model[cite: 738, 742].
 * **Result:** Higher precision compared to byte-level guesses.
 
 ### 2. Correlation vs. Difference of Means (DoM)

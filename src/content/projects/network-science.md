@@ -2,7 +2,7 @@
 title: "Advanced Network Science"
 description: "A collection of complex system analyses using Graph Theory in R. From dismantling terrorist cells to mapping interdisciplinary science flows."
 pubDate: 2025-11-20
-heroImage: "/projects/network-science.png"
+heroImage: "/projects/advanced-data-science.png"
 badge: "Network Science"
 tags: ["R", "Data Science", "Graph Theory"]
 lang: "ITA / ENG"
