@@ -4,7 +4,7 @@ description: "A collection of complex system analyses using Graph Theory in R. F
 pubDate: 2025-11-20
 heroImage: "/projects/advanced-data-science.png"
 badge: "Network Science"
-tags: ["Data Science", "Graph Theory"]
+tags: ["Graph Theory"]
 lang: "ITA / ENG"
 url: "https://github.com/EdordoPng/NetworkScienceR"
 related: ["nba-network"]

@@ -5,55 +5,55 @@ const tag_url = url.split("/").slice(0, -1).join("/") + "/tag";
 ---
 
 <div class="group rounded-lg bg-base-100 hover:shadow-xl transition-all ease-in-out hover:scale-[102%] hover:bg-neutral hover:text-neutral-content">
-  <a href={url} target={target}>
-    <div class="hero-content flex-col md:flex-row">
-      {
-        img && (
-          <div class="relative shrink-0">
-            <Image
-              src={img}
-              width={750}
-              height={422}
-              format="webp"
-              alt={title}
-              class="max-w-full md:max-w-[13rem] rounded-lg aspect-video object-cover"
-            />
-             {lang && (
-              <span class="absolute bottom-1 right-1 badge badge-neutral text-xs opacity-90 font-bold uppercase border-none">
-                {lang}
-              </span>
-            )}
-          </div>
-        )
-      }
-      <div class="grow w-full">
-        <h1 class="text-xl font-bold">
-          {title}
-          {badge && (
-             <div class="badge badge-secondary mx-2 group-hover:bg-base-100 group-hover:text-neutral">
-          {badge}
-      </div>
-      )}
-        </h1>
-        <p class="py-1 text-1xl">{desc}</p>
-        <div class="card-actions justify-end">
-          {
-            tags &&
-              tags.map((tag) => (
-                <a href={`${tag_url}/${tag}`} class="badge badge-outline">
-                  {tag}
-                </a>
-              ))
-          }
-          {
-            lang && (
-              <div class="badge badge-neutral ml-2 group-hover:bg-base-100 group-hover:text-neutral">
-                {lang}
-              </div>
-              )
-            }
-        </div>
-      </div>
-    </div>
-  </a>
+  <a href={url} target={target}>
+    <div class="hero-content flex-col md:flex-row">
+      {
+        img && (
+          <div class="relative shrink-0">
+            <Image
+              src={img}
+              width={750}
+              height={422}
+              format="webp"
+              alt={title}
+              class="max-w-full md:max-w-[13rem] rounded-lg aspect-video object-cover"
+            />
+             {lang && (
+              <span class="absolute bottom-1 right-1 badge badge-neutral text-xs opacity-90 font-bold uppercase border-none">
+                {lang}
+              </span>
+            )}
+          </div>
+        )
+      }
+      <div class="grow w-full">
+                <h1 class="text-xl font-bold group-hover:text-neutral-content">
+          {title}
+          {badge && (
+             <div class="badge badge-secondary mx-2 group-hover:bg-base-100 group-hover:text-neutral">
+          {badge}
+      </div>
+      )}
+        </h1>
+                <p class="py-1 text-1xl group-hover:text-neutral-content">{desc}</p>
+        <div class="card-actions justify-end">
+          {
+            tags &&
+              tags.map((tag) => (
+                <a href={`${tag_url}/${tag}`} class="badge badge-outline">
+                  {tag}
+                </a>
+              ))
+          }
+          {
+            lang && (
+              <div class="badge badge-neutral ml-2 group-hover:bg-base-100 group-hover:text-neutral">
+                {lang}
+              </div>
+              )
+            }
+        </div>
+      </div>
+    </div>
+  </a>
 </div>
