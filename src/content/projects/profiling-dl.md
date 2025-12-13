@@ -41,6 +41,3 @@ After training, the models were deployed to attack the "Attack Set" (unknown key
 * **Frameworks:** TensorFlow, Keras, H5py
 * **Techniques:** Supervised Learning, SCA Profiling
 * **Target:** AES-128 (ASCAD Benchmark)
-
----
-*Based on the "Study of Deep Learning Techniques for Side-Channel Analysis" methodology.*

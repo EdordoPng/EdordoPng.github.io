@@ -17,24 +17,25 @@ The project was built by a team of 3 developers to solve the issue of data centr
 
 ## Project Mission
 
-[cite_start]**DataMinder** is a Decentralized Science (DeSci) platform that aims to return data ownership to individuals[cite: 506].
-In the current landscape, research institutions hoard sensitive data in silos. [cite_start]DataMinder allows users (e.g., patients) to store their data securely and grant access to researchers only upon payment and consent[cite: 510].
+**DataMinder** is a Decentralized Science (DeSci) platform that aims to return data ownership to individuals[cite: 506].
+In the current landscape, research institutions hoard sensitive data in silos. 
+DataMinder allows users (e.g., patients) to store their data securely and grant access to researchers only upon payment and consent[cite: 510].
 
 ## How it Works: The "Encrypted NFT" Logic
 
 The core innovation lies in how data is handled on the **Solana** blockchain:
 
 1.  **Encryption:** Sensitive data is encrypted client-side using the user's keys.
-2.  [cite_start]**NFT Minting:** The encrypted data is stored as metadata within an NFT[cite: 522].
-3.  [cite_start]**Access Control:** When a researcher purchases access, the data is re-encrypted using their public key (Asymmetric Encryption), allowing them—and only them—to read it[cite: 524, 528].
+2.  **NFT Minting:** The encrypted data is stored as metadata within an NFT[cite: 522].
+3.  **Access Control:** When a researcher purchases access, the data is re-encrypted using their public key (Asymmetric Encryption), allowing them—and only them—to read it[cite: 524, 528].
 
 ## MVP Features
 
 The platform demonstrates a complete user flow:
-* [cite_start]**Wallet Connection:** Authentication via Solana wallets[cite: 583].
-* [cite_start]**Data Upload:** Users upload documents which are minted as private NFTs[cite: 586].
-* [cite_start]**Marketplace:** An "Explore" page where researchers can browse available (but encrypted) datasets[cite: 587].
-* [cite_start]**Request System:** Researchers send access requests, and users approve them to release the decryption keys[cite: 588].
+* **Wallet Connection:** Authentication via Solana wallets[cite: 583].
+* **Data Upload:** Users upload documents which are minted as private NFTs[cite: 586].
+* **Marketplace:** An "Explore" page where researchers can browse available (but encrypted) datasets[cite: 587].
+* **Request System:** Researchers send access requests, and users approve them to release the decryption keys[cite: 588].
 
 ## Tech Stack
 
@@ -46,4 +47,4 @@ The platform demonstrates a complete user flow:
 ## Team
 
 * **Edoardo Diana:** Full Stack & Logic.
-* **[Massimo Montanaro]:**
+* **Massimo Montanaro**

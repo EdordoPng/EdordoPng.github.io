@@ -6,7 +6,7 @@ heroImage: "/projects/dpa.png"
 badge: "Cybersecurity"
 tags: ["Python", "Differential Power Analysis (DPA)", "Side-Channel Attacks", "Advanced Encryption Standard (AES)", "Cryptography", "Hardware Security", "Leakage Model"]
 lang: "ENG"
-url: "https://github.com/EdordoPng/Differential_Power_Analysis"
+url: "https://github.com/EdordoPng/differential-power-analysis-attack"
 related: ["aes-implementation", "profiling-dl"] 
 ---
 

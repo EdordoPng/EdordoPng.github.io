@@ -55,6 +55,3 @@ To reduce the immense search space caused by uncertainty, I implemented directio
 
 ## Note 
 This project builds upon the foundational logic established in the Smart Elevator Control project, introducing uncertainty handling.
-
----
-*This project demonstrates the ability to reason about robust AI systems that must operate correctly even with faulty sensors or missing data.*

@@ -6,7 +6,7 @@ heroImage: "/projects/cross.jpg"
 badge: "Automated Reasoning"
 tags: ["Clingo", "Answer Set Programming"]
 lang: "ENG"
-url: "https://github.com/EdordoPng/Cross_out_puzzle_solver"
+url: "https://github.com/EdordoPng/cross-out-puzzle-ASP"
 ---
 
 ## Project Overview

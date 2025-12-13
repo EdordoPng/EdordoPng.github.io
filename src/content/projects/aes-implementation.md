@@ -6,7 +6,7 @@ heroImage: "/projects/AES-encryption.png"
 badge: "Cybersecurity"
 tags: ["Python", "Advanced Encryption Standard (AES)", "Galois Finite Field", "Cybersecurity"]
 lang: "ENG"
-url: "https://github.com/EdordoPng" 
+url: "https://github.com/EdordoPng/aes-implementation" 
 related: ["dpa-attack"]
 ---
 

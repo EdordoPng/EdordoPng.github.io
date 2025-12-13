@@ -39,6 +39,6 @@ Out of numerous teams and intense competition, AztecSwap achieved top-tier recog
 
 ## Team
 
-* **Edoardo Diana:**
-* **arjanjohan:**
-* **Labdhi Jain:**
+* **Edoardo Diana**
+* **arjanjohan**
+* **Labdhi Jain**
