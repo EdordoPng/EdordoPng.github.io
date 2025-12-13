@@ -163,8 +163,8 @@ const uniqueBadges = Array.from(badgeSet).sort();
   </div>
 
 <script is:inline>
+    // MAPPA 1: Colori Pastello Chiari (Stato Normale/Rilevante)
     const COLOR_MAP = {
-      // Già presenti:
       'Cybersecurity': '#C8E6C9',     // Light Green
       'Data Science': '#FFCCBC',       // Light Orange
       'Network Science': '#FFF9C4',   // Light Yellow
@@ -172,6 +172,17 @@ const uniqueBadges = Array.from(badgeSet).sort();
       'Assembly': '#FFECB3',           // Pastel Yellow/Gold
       'Automated Reasoning': '#F0F4C3',// Pastel Lime
       'Augmented Reality': '#D7CCC8',  // Light Beige/Stone
+    };
+
+    // MAPPA 2: Colori Più Scuri (Stato Selezionato/Shade)
+    const SHADE_MAP = {
+      'Cybersecurity': '#4CAF50',     // Green
+      'Data Science': '#FF5722',       // Deep Orange
+      'Network Science': '#FFEB3B',   // Yellow
+      'Blockchain': '#673AB7',        // Deep Purple
+      'Assembly': '#FFC107',           // Amber
+      'Automated Reasoning': '#8BC34A',// Lime
+      'Augmented Reality': '#795548',  // Brown (Per un contrasto migliore sul chiaro)
     };
     
     const activeTags = new Set();
@@ -213,6 +224,9 @@ const uniqueBadges = Array.from(badgeSet).sort();
     }
     
     function updateTagStyles(activeBadge, activeColor) {
+        // Ottieni la shade (colore scuro)
+        const activeShade = activeBadge ? SHADE_MAP[activeBadge] : null;
+
         tagButtons.forEach(btn => {
             const btnTag = btn.getAttribute('data-filter');
             
@@ -223,6 +237,9 @@ const uniqueBadges = Array.from(badgeSet).sort();
             btn.disabled = false;
             
             if (btnTag === 'all') return;
+
+            // Controlla se il tag è attivamente selezionato
+            const isSelected = activeTags.has(btnTag);
 
             if (activeBadge) {
                 let foundInMacro = false;
@@ -237,29 +254,40 @@ const uniqueBadges = Array.from(badgeSet).sort();
                     }
                 });
                 
-                // 2. Disabilita e colora i tag
+                // 2. Disabilita, colora o applica ombra
                 if (!foundInMacro) {
                     btn.disabled = true;
                     btn.classList.remove('btn-active');
                     btn.classList.add('opacity-40');
                     activeTags.delete(btnTag); 
+                } else if (isSelected) {
+                    // STATO 1: Selezionato (Colore Scuro/Ombra)
+                    btn.classList.remove('opacity-40');
+                    btn.style.borderColor = activeShade;
+                    btn.style.backgroundColor = activeShade;
+                    btn.style.color = '#FFFFFF'; // Testo bianco su colore scuro
                 } else {
-                    // Se il tag è rilevante per la macro, applica il colore pastello
+                    // STATO 2: Rilevante ma Non Selezionato (Colore Pastello)
                     btn.classList.remove('opacity-40');
                     btn.style.borderColor = activeColor;
                     btn.style.backgroundColor = activeColor;
-                    btn.style.color = '#333333'; // Testo scuro sul colore chiaro
+                    btn.style.color = '#333333'; // Testo scuro su colore chiaro
                 }
             } else {
-                 // Nessun filtro Macro attivo: tutti i tag sono disponibili e tornano ai colori di default
+                 // STATO 3: Nessuna Macro Attiva (Default)
                  btn.classList.remove('opacity-40');
-                 btn.style.color = '';
+                 if (isSelected) {
+                    // Seleziona scuro se nessun macro-filtro è attivo (per mantenere visibilità)
+                    btn.style.backgroundColor = '#333333';
+                    btn.style.color = '#FFFFFF';
+                 } else {
+                    btn.style.backgroundColor = '';
+                    btn.style.color = '';
+                 }
             }
         });
         
-        // Assicurati che i filtri siano applicati dopo la pulizia dei tag disabilitati
         if (activeBadges.size > 0 && activeTags.size > 0) {
-            // Se avevamo tag selezionati che sono stati disabilitati, rifiltra.
             applyFilters();
         }
     }
@@ -312,22 +340,30 @@ const uniqueBadges = Array.from(badgeSet).sort();
     });
 
 
-    // Listener Tag Filter (Selezione multipla)
+    // Listener Tag Filter (Ora Mutuo Esclusivo)
     tagButtons.forEach(button => {
       button.addEventListener('click', () => {
         const tag = button.getAttribute('data-filter');
-        if (button.disabled) return; // Ignora se disabilitato dalla macro
+        if (button.disabled) return; 
 
+        // 1. Logica di Selezione (Mutuo Esclusivo)
         if (tag === 'all') {
           activeTags.clear();
         } else {
-          if (activeTags.has(tag)) activeTags.delete(tag);
-          else activeTags.add(tag);
+          // Se il tag è già selezionato, lo deseleziona (toggle).
+          if (activeTags.has(tag)) {
+            activeTags.delete(tag);
+          } else {
+            // Deseleziona tutti gli altri, poi seleziona solo il nuovo tag.
+            activeTags.clear();
+            activeTags.add(tag);
+          }
         }
-
-        // Update UI Bottoni
+        
+        // 2. Aggiorna UI Bottoni
         tagButtons.forEach(btn => {
           const btnTag = btn.getAttribute('data-filter');
+          // Disattiva il bottone 'Tutti' se ci sono filtri attivi
           if (btnTag === 'all') {
             activeTags.size === 0 ? btn.classList.add('btn-active') : btn.classList.remove('btn-active');
           } else {
