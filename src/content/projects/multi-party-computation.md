@@ -2,7 +2,7 @@
 title: "Secure MPC with Garbled Circuits"
 description: "Implementation of Yao's Garbled Circuits protocol for secure Multi-Party Computation (MPC), allowing two parties to compute the maximum of their private datasets without revealing inputs."
 pubDate: 2024-03-20
-heroImage: "/projects/mpc-garbled.png"
+heroImage: "/projects/mpc.jpg"
 badge: "Cybersecurity"
 tags: ["Python", "Cryptography","Multi-Party Computation (MPC)", "Yao's Garbled Circuits", "Oblivious Transfer", "Boolean Circuits"]
 lang: "ENG"

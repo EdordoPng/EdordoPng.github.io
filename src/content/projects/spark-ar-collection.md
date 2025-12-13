@@ -2,7 +2,7 @@
 title: "Augmented Reality Filter Collection"
 description: "A comprehensive showcase of various Augmented Reality filters and effects developed for Instagram and Facebook using Meta Spark AR Studio."
 pubDate: 2022-01-01
-heroImage: "/projects/spark-ar-cover.png"
+heroImage: "/projects/metaspark.jpg"
 badge: "Augmented Reality"
 tags: ["Spark AR", "AR and VR", "JavaScript", "Meta"]
 lang: "ITA / ENG"

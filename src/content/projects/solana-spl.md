@@ -2,7 +2,7 @@
 title: "Solana SPL Token Automation"
 description: "Programmatic creation and management of SPL Tokens on the Solana Devnet using TypeScript and Web3.js."
 pubDate: 2024-02-15
-heroImage: "/projects/masterz-sol.jpg"
+heroImage: "/projects/sol.jpg"
 badge: "Blockchain"
 tags: ["Solana", "TypeScript", "SPL Token"]
 lang: "ENG"

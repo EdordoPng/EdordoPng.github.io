@@ -2,7 +2,7 @@
 title: "MIPS Assembly Sum Calculator"
 description: "Low-level MIPS Assembly program that calculates min/max sum sets with manual memory management and arithmetic overflow protection."
 pubDate: 2024-01-10
-heroImage: "/projects/mips-assembly.png"
+heroImage: "/projects/calc.jpg"
 badge: "Assembly"
 tags: ["MIPS", "QtSPIM, MARS"]
 lang: "ITA / ENG"
