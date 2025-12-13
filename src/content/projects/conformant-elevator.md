@@ -2,7 +2,7 @@
 title: "Conformant Elevator Planning"
 description: "Advanced AI planning project addressing incomplete knowledge and uncertainty in elevator control systems using Answer Set Programming."
 pubDate: 2024-05-20
-heroImage: "/projects/elev-plan.png"
+heroImage: "/projects/elev-plan.jpg"
 badge: "Automated Reasoning"
 tags: ["Conformant Planning Problem", "Clingo", "Answer Set Programming", "Uncertainty"]
 lang: "ENG"

@@ -1,8 +1,9 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import HorizontalShopItem from "../../components/HorizontalShopItem.astro";
+// import HorizontalShopItem from "../../components/HorizontalShopItem.astro"; // Non serve per ora
 import { getCollection } from "astro:content";
 
+// La logica lato server può rimanere, anche se non la usiamo nel template per ora.
 export async function getStaticPaths({ paginate }) {
   const items = await getCollection("store");
   items.sort((a, b) => b.data.updatedDate.valueOf() - a.data.updatedDate.valueOf());
@@ -12,68 +13,16 @@ const { page } = Astro.props;
 ---
 
 <BaseLayout title="Store" sideBarActiveItemID="store">
-  <ul>
-    {
-      page.data.map((item) => (
-        <>
-          <HorizontalShopItem
-            title={item.data.title}
-            img={item.data.heroImage}
-            desc={item.data.description}
-            pricing={item.data.pricing}
-            oldPricing={item.data.oldPricing}
-            checkoutUrl={item.data.checkoutUrl}
-            badge={item.data.badge}
-            details={item.data.details}
-            tags={item.data.tags}
-            url={"/store/" + item.slug}
-            custom_link={item.data.custom_link}
-            custom_link_label={item.data.custom_link_label}
-          />
-          <div class="divider my-0" />
-        </>
-      ))
-    }
-  </ul>
 
-  <div class="flex justify-between">
-    {
-      page.url.prev ? (
-        <a href={page.url.prev} class="btn btn-ghost my-10 mx-5">
-          {" "}
-          <svg
-            class="h-6 w-6 fill-current md:h-8 md:w-8"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-          >
-            <path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z" />
-          </svg>{" "}
-          Previous page
-        </a>
-      ) : (
-        <div />
-      )
-    }
-    {
-      page.url.next ? (
-        <a href={page.url.next} class="btn btn-ghost my-10 mx-5">
-          Next page{" "}
-          <svg
-            class="h-6 w-6 fill-current md:h-8 md:w-8"
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-          >
-            {" "}
-            <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
-          </svg>
-        </a>
-      ) : (
-        <div />
-      )
-    }
+  <div class="min-h-[60vh] flex flex-col items-center justify-center text-center px-4">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-16 h-16 mb-4 opacity-50">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 .75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349M3.75 21V9.349m0 0a3.001 3.001 0 0 0 3.75-.615A2.993 2.993 0 0 0 9.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 0 0 2.25 1.016c.896 0 1.7-.393 2.25-1.016a3.001 3.001 0 0 0 3.75.615V21m-9-6.75h.008v.008H12V14.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm4.5 0h.008v.008h-.008V14.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm-6.75-3h.008v.008h-.008V11.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm4.5 0h.008v.008h-.008V11.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+    </svg>
+    <h2 class="text-2xl md:text-3xl font-bold opacity-80">
+      Non ho prodotti da vendere in questo momento.
+    </h2>
+    <p class="text-lg mt-2 opacity-60">
+      Torna a controllare più avanti!
+    </p>
   </div>
-</BaseLayout>
+  </BaseLayout>

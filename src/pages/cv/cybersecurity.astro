@@ -1,0 +1,102 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import TimeLineElement from "../../components/cv/TimeLine.astro";
+---
+
+<BaseLayout title="Cybersecurity Resume | Edoardo" sideBarActiveItemID="cv">
+  
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">Cybersecurity Expert</div>
+    <div class="text-xl w-full font-light">Edoardo Diana</div>
+  </div>
+
+  <div class="mb-10 text-justify">
+    Ingegnere con una mentalità strategica specializzato nell'intersezione tra <b>cybersecurity</b>, <b>intelligenza artificiale</b> e sistemi a basso livello. Comprovata esperienza nell'analisi di vulnerabilità hardware, nella crittografia applicata e nell'utilizzo di tecniche AI avanzate per il profiling delle minacce. Impegnato nella costruzione di sistemi sicuri e resilienti attraverso analisi rigorose e risoluzione innovativa dei problemi.
+  </div>
+
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">Professional Experience</div>
+  </div>
+
+  <div class="time-line-container mb-10">
+    <TimeLineElement
+      title="Security Researcher (Hardware & AI)"
+      subtitle="Progetto Accademico Avanzato"
+    >
+      <ul class="list-disc ml-5 mb-2">
+        <li>Sviluppato modelli di <b>Deep Learning</b> per il profiling avanzato in attacchi <b>Side-Channel Analysis (SCA)</b>.</li>
+        <li>Condotto con successo attacchi di analisi energetica su implementazioni crittografiche hardware, dimostrando expertise nelle vulnerabilità fisiche dei dispositivi.</li>
+        <li>Analizzato contromisure per la protezione dell'hardware da leakage di informazioni.</li>
+      </ul>
+    </TimeLineElement>
+
+    <TimeLineElement
+      title="Cryptographic Protocol Developer"
+      subtitle="Progetto di Ricerca Applicata"
+    >
+      <ul class="list-disc ml-5 mb-2">
+        <li>Progettato e implementato un sistema di <b>Secure Multi-Party Computation (MPC)</b> basato sul protocollo Yao’s Garbled Circuits in Python.</li>
+        <li>Implementato protocolli di <b>Oblivious Transfer (OT)</b> per garantire la totale privacy dei dati durante computazioni collaborative tra parti non fidate.</li>
+        <li>Focalizzato su tecnologie <i>privacy-preserving</i> e design di protocolli sicuri.</li>
+      </ul>
+    </TimeLineElement>
+
+    <TimeLineElement
+      title="Network Security & Complex Systems Analyst"
+      subtitle="Progetto di Analisi Reti"
+    >
+      <ul class="list-disc ml-5 mb-2">
+        <li>Applicato teorie avanzate di <b>Network Science</b> e teoria dei grafi in R per modellare sistemi complessi.</li>
+        <li>Analizzato topologie di rete per identificare nodi critici e vulnerabilità strutturali, simulando strategie di "dismantling" di reti avversarie.</li>
+        <li>Mappato flussi interdisciplinari per comprendere la resilienza delle infrastrutture di rete.</li>
+      </ul>
+    </TimeLineElement>
+    
+    <TimeLineElement
+      title="Low-Level Systems Engineer"
+      subtitle="Sviluppo Architetturale"
+    >
+      <ul class="list-disc ml-5 mb-2">
+        <li>Sviluppato algoritmi ottimizzati in <b>MIPS Assembly</b>, focalizzandosi sull'interazione diretta con l'hardware e la gestione dei registri.</li>
+        <li>Implementato controlli di sicurezza manuali, come la rilevazione di <b>arithmetic overflow</b> a livello di registro, garantendo un'esecuzione sicura senza astrazioni di alto livello.</li>
+        <li>Approfondito le basi del Reverse Engineering attraverso l'analisi del codice macchina.</li>
+      </ul>
+    </TimeLineElement>
+  </div>
+
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">Education</div>
+  </div>
+
+  <div class="time-line-container grid gap-4 mb-10">
+    <TimeLineElement
+      title="Double Degree Erasmus Program"
+      subtitle="2024-2025 at Universität Klagenfurt, Austria"
+    />
+    <TimeLineElement
+      title="Master Degree: Artificial Intelligence and Cybersecurity"
+      subtitle="2023 - Present at Università di Udine, Italy"
+    />
+    <TimeLineElement
+      title="Bachelor Degree: Computer and Electronic Engineering"
+      subtitle="2017 - 2023 at Università di Pavia, Italy"
+    />
+  </div>
+
+  <div class="mb-5">
+    <div class="text-3xl w-full font-bold">Cybersecurity Skills</div>
+  </div>
+
+  <ul class="list-disc md:columns-2 columns-1 mx-6 mb-10">
+    <li><b>Core Security:</b> Side-Channel Analysis (SCA), Applied Cryptography (MPC, Garbled Circuits), Network Security Analysis, Hardware Security.</li>
+    <li><b>AI for Security:</b> Deep Learning threat profiling, AI Safety, Adversarial ML.</li>
+    <li><b>Low-Level & Reverse:</b> MIPS Assembly, Architettura dei Calcolatori, Gestione della Memoria Sicura.</li>
+    <li><b>Languages & Tools:</b> Python (Scikit-learn, PyTorch/TensorFlow), R, C/C++, Linux Environment.</li>
+    <li><b>Data Science:</b> Graph Theory, Complex System Analysis, Network Resilience Modeling.</li>
+  </ul>
+
+  <div class="mt-8">
+    <a href="/cv" class="btn btn-outline">← Back to CV Selection</a>
+  </div>
+
+</BaseLayout>
