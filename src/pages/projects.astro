@@ -32,7 +32,8 @@ const sortedTags = Object.keys(tagCounts).sort((a, b) => {
       <div class="dropdown dropdown-end">
         <div tabindex="0" role="button" class="btn btn-outline btn-sm m-1" title="Ordina Tag">
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M7 12h10"/><path d="M10 18h4"/></svg>
-          <span class="hidden md:inline ml-1">Ordina</span> </div>
+          <span class="hidden md:inline ml-1">Ordina</span>
+        </div>
         <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 border border-base-200">
           <li><a id="sort-count">📊 Quantità (Max-Min)</a></li>
           <li><a id="sort-alpha">🔤 Alfabetico (A-Z)</a></li>
@@ -92,8 +93,9 @@ const sortedTags = Object.keys(tagCounts).sort((a, b) => {
         </div>
 
         <div class="view-grid hidden h-full">
-          <a href={"/projects/" + post.slug} class="group block h-full">
-            <div class="group card bg-base-100 shadow-sm hover:shadow-xl transition-all duration-300 h-full border border-base-200 hover:bg-neutral hover:text-neutral-content">
+          <a href={"/projects/" + post.slug} class="block h-full">
+            <div class="group card bg-base-100 shadow-sm hover:shadow-xl transition-all duration-300 h-full border border-base-200 hover:bg-neutral">
+              
               <figure class="relative overflow-hidden aspect-video">
                 {post.data.heroImage && (
                   <Image
@@ -106,20 +108,23 @@ const sortedTags = Object.keys(tagCounts).sort((a, b) => {
                   />
                 )}
                 {post.data.lang && (
-                  <div class="absolute bottom-2 right-2 badge badge-neutral text-xs font-bold opacity-90">
+                  <div class="absolute bottom-2 right-2 badge badge-neutral text-xs font-bold opacity-90 group-hover:bg-base-100 group-hover:text-neutral">
                     {post.data.lang}
                   </div>
                 )}
               </figure>
+
               <div class="card-body p-4 text-center">
                 <h2 class="card-title justify-center text-lg font-bold transition-colors text-base-content group-hover:text-neutral-content">
                   {post.data.title}
                 </h2>
+                
                 {post.data.badge && <div class="badge badge-secondary mx-auto">{post.data.badge}</div>}
               </div>
             </div>
           </a>
         </div>
+
       </div>
     ))}
   </div>
@@ -163,7 +168,7 @@ const sortedTags = Object.keys(tagCounts).sort((a, b) => {
       });
     });
 
-    // 2. CAMBIO VISTA
+    // 2. CAMBIO VISTA (LISTA <-> GRIGLIA)
     const toggleViewBtn = document.getElementById('view-toggle-btn');
     const container = document.getElementById('projects-grid');
     const iconList = document.getElementById('icon-list');
@@ -172,19 +177,23 @@ const sortedTags = Object.keys(tagCounts).sort((a, b) => {
 
     toggleViewBtn.addEventListener('click', () => {
       isGridView = !isGridView;
+      
+      // Cambio Icona
       if (isGridView) {
         iconList.classList.add('hidden');
         iconGrid.classList.remove('hidden');
+        // Cambio Container: Grid
         container.classList.remove('flex', 'flex-col');
-        // MODIFICA MOBILE: grid-cols-1 su mobile, grid-cols-2 su tablet (md), grid-cols-3 su desktop (lg)
         container.classList.add('grid', 'grid-cols-1', 'md:grid-cols-2', 'lg:grid-cols-3', 'gap-6');
       } else {
         iconList.classList.remove('hidden');
         iconGrid.classList.add('hidden');
+        // Cambio Container: Flex List
         container.classList.remove('grid', 'grid-cols-1', 'md:grid-cols-2', 'lg:grid-cols-3', 'gap-6');
         container.classList.add('flex', 'flex-col');
       }
 
+      // Cambio contenuto card
       const listCards = document.querySelectorAll('.view-list');
       const gridCards = document.querySelectorAll('.view-grid');
 
