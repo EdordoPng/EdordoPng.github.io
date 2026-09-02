@@ -9,20 +9,7 @@ const posts = (await getCollection("projects")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 
-// 2. Calcoliamo i conteggi per ogni tag
-const tagCounts = {};
-posts.forEach(post => {
-  (post.data.tags || []).forEach(tag => {
-    tagCounts[tag] = (tagCounts[tag] || 0) + 1;
-  });
-});
-
-// 3. Estraiamo i tag unici e li ordiniamo per Quantità Decrescente
-const sortedTags = Object.keys(tagCounts).sort((a, b) => {
-  return tagCounts[b] - tagCounts[a];
-});
-
-// NUOVO: 4. Estraiamo i badge unici (Macro-Categorie)
+// 2. Estraiamo i badge unici (Macro-Categorie)
 const badgeSet = new Set();
 posts.forEach(post => {
   if (post.data.badge) {
@@ -32,14 +19,14 @@ posts.forEach(post => {
 const uniqueBadges = Array.from(badgeSet).sort();
 ---
 
-<BaseLayout title="Projects" sideBarActiveItemID="projects">
+<BaseLayout title="Projects" sideBarActiveItemID="projects" drawerContentClass="projects-content-area">
 
   <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-5 gap-4">
     <div class="text-3xl font-bold">My Projects</div>
     
     <div class="flex gap-2 w-full md:w-auto justify-end">
       <div class="dropdown dropdown-end">
-        <div tabindex="0" role="button" class="btn btn-outline btn-sm m-1" title="Ordina Tag">
+        <div tabindex="0" role="button" class="btn btn-outline btn-sm m-1" title="Ordina Categorie">
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M7 12h10"/><path d="M10 18h4"/></svg>
           <span class="hidden md:inline ml-1">Order</span>
         </div>
@@ -56,7 +43,7 @@ const uniqueBadges = Array.from(badgeSet).sort();
     </div>
   </div>
 
-  <div class="mb-5 border-b border-base-300 pb-4">
+  <div class="mb-8 border-b border-base-300 pb-4">
     <div class="text-sm font-semibold mb-2 opacity-70">May select 1 Macro-Category:</div>
     <div class="flex flex-wrap gap-2" id="badge-filter-container">
       <button class="btn btn-primary btn-sm badge-filter-btn btn-active" data-badge-filter="all">
@@ -72,37 +59,6 @@ const uniqueBadges = Array.from(badgeSet).sort();
         </button>
       ))}
     </div>
-  </div>
-
-  <div class="mb-8">
-
-  <div class="mb-8">
-
-    <div class="flex flex-wrap gap-2" id="filter-container">
-      <button class="btn btn-outline btn-sm filter-btn btn-active" data-filter="all">
-        Tutti
-      </button>
-      
-      {sortedTags.map((tag) => (
-        <button 
-          class="btn btn-outline btn-sm filter-btn tag-btn" 
-          
-[cite: 21] data-filter={tag}
-          data-name={tag}
-          data-count={tagCounts[tag]}
-        >
-          {tag} <span class="text-xs opacity-70 ml-1">({tagCounts[tag]})</span>
-        </button>
-      ))}
-    </div>
-
-    {sortedTags.length > 10 && (
-      <div class="flex justify-start mt-2">
-        <button id="toggle-advanced-filters" class="btn btn-ghost btn-sm text-sm opacity-80">
-          Show Advanced Filters
-        </button>
-      </div>
-    )}
   </div>
 
   <div id="projects-grid" class="flex flex-col gap-4 transition-all duration-300">
@@ -167,7 +123,6 @@ const uniqueBadges = Array.from(badgeSet).sort();
   </div>
 
 <script is:inline>
-    // MAPPA 1: Colori Pastello Chiari (Stato Normale/Rilevante)
     const COLOR_MAP = {
       'Cybersecurity': '#C8E6C9',     // Light Green
       'Data Science': '#FFCCBC',       // Light Orange
@@ -178,144 +133,41 @@ const uniqueBadges = Array.from(badgeSet).sort();
       'Augmented Reality': '#D7CCC8',  // Light Beige/Stone
     };
     
-    const activeTags = new Set();
     const activeBadges = new Set();
-    
-    // Nodi DOM
-    const tagButtons = document.querySelectorAll('.filter-btn');
     const badgeButtons = document.querySelectorAll('.badge-filter-btn');
     const projectItems = document.querySelectorAll('.project-item');
 
-    // ==========================================
-    // 2. FUNZIONI DI FILTRAGGIO & COLORAZIONE
-    // ==========================================
-    
-    // Funzione per applicare filtri (restaurata a selezione multipla sotto)
     function applyFilters() {
-      // Determina il badge attivo per colorare
-      const activeBadge = activeBadges.size === 1 ? Array.from(activeBadges)[0] : null;
-      const activeColor = activeBadge ? COLOR_MAP[activeBadge] : null;
-
       projectItems.forEach(item => {
-        const itemTags = item.getAttribute('data-tags').split(',');
         const itemBadge = item.querySelector('.badge-secondary')?.textContent?.trim() || '';
-
-        // Filtro 1: Macro-Categoria (Badge) - Prioritario
-        const isBadgeMatch = activeBadges.size === 0 || activeBadges.has(itemBadge);
-
-        // Filtro 2: Tag (Logica: Progetto ha almeno UNO dei tag selezionati)
-        const isTagMatch = activeTags.size === 0 || itemTags.some(t => activeTags.has(t));
-
-        // VISIBILE solo se matchano entrambi
-        const isVisible = isBadgeMatch && isTagMatch;
+        const isVisible = activeBadges.size === 0 || activeBadges.has(itemBadge);
         
-        // Applica visibilità
         item.style.opacity = isVisible ? '1' : '0';
         item.style.display = isVisible ? 'block' : 'none';
       });
-      
-      // Aggiorna colori e disponibilità dei tag
-      updateTagStyles(activeBadge, activeColor);
-    }
-    
-    // Funzione per aggiornare stili e disabilitare i tag
-    function updateTagStyles(activeBadge, activeColor) {
-
-        tagButtons.forEach(btn => {
-            const btnTag = btn.getAttribute('data-filter');
-            
-            // 1. Resetta gli stili di base e riabilita
-            btn.style.borderColor = '';
-            btn.style.backgroundColor = '';
-            btn.style.color = '';
-            btn.disabled = false;
-            
-            // Applica o rimuovi lo stato 'btn-active'
-            const isTagSelected = activeTags.has(btnTag) || (btnTag === 'all' && activeTags.size === 0);
-            isTagSelected ? btn.classList.add('btn-active') : btn.classList.remove('btn-active');
-            
-            if (btnTag === 'all') return;
-
-            if (activeBadge) {
-                // =============== STATO: MACRO-CATEGORIA ATTIVA (Blocco i Tag) ===============
-                
-                // Disabilita il bottone tag
-                btn.disabled = true;
-                
-                // Rimuove eventuali selezioni attive (visive e logiche)
-                btn.classList.remove('btn-active');
-                activeTags.delete(btnTag); 
-
-                let foundInMacro = false;
-                
-                // Controlla se il tag esiste all'interno della macro-categoria selezionata
-                projectItems.forEach(item => {
-                    const itemTags = item.getAttribute('data-tags').split(',');
-                    const itemBadge = item.querySelector('.badge-secondary')?.textContent?.trim() || '';
-                    
-                    if (activeBadges.has(itemBadge) && itemTags.includes(btnTag)) {
-                        foundInMacro = true;
-                    }
-                });
-                
-                // Colorazione per i tag rilevanti (solo a scopo visivo, sono disabilitati)
-                if (foundInMacro) {
-                    btn.classList.remove('opacity-40');
-                    btn.style.borderColor = activeColor;
-                    btn.style.backgroundColor = activeColor;
-                    btn.style.color = '#333333'; // Testo scuro su colore chiaro
-                } else {
-                    btn.classList.add('opacity-40');
-                }
-
-            } else {
-                // =============== STATO: NESSUNA MACRO ATTIVA (Selezione Multipla Libera) ===============
-                
-                btn.classList.remove('opacity-40');
-                // Qui, se un tag è selezionato, mantiene lo stile di default di 'btn-active'
-                
-                // Rimuovi eventuali colorazioni precedenti
-                btn.style.borderColor = '';
-                btn.style.backgroundColor = '';
-                btn.style.color = '';
-            }
-        });
-        
-        // Riaplica i filtri se un badge è stato disabilitato per forzare la selezione 'OR'
-        if (activeTags.size > 0 && activeBadges.size > 0) {
-            applyFilters();
-        }
     }
 
-    // ==========================================
-    // 3. LISTENER BOTTONI
-    // ==========================================
-    
-    // Listener Badge Filter (Macro-Categoria)
     badgeButtons.forEach(button => {
       button.addEventListener('click', () => {
         const badge = button.getAttribute('data-badge-filter');
         activeBadges.clear();
-        activeTags.clear(); // Resetta i tag quando cambi macro-categoria
 
         if (badge !== 'all') {
           activeBadges.add(badge);
         }
 
-        // Update UI Badges
         badgeButtons.forEach(btn => {
           const btnBadge = btn.getAttribute('data-badge-filter');
           if (btnBadge === 'all') {
             activeBadges.size === 0 ? btn.classList.add('btn-active', 'btn-primary') : btn.classList.remove('btn-active', 'btn-primary');
             activeBadges.size === 0 ? btn.classList.remove('btn-outline') : btn.classList.add('btn-outline');
-
           } else {
             activeBadges.has(btnBadge) ? btn.classList.add('btn-active') : btn.classList.remove('btn-active');
           }
-          // Applica colore al badge selezionato
+
           if (activeBadges.has(btnBadge)) {
-            btn.style.borderColor = COLOR_MAP[btnBadge];
-            btn.style.backgroundColor = COLOR_MAP[btnBadge];
+            btn.style.borderColor = COLOR_MAP[btnBadge] || '';
+            btn.style.backgroundColor = COLOR_MAP[btnBadge] || '';
             btn.style.color = '#333333';
           } else {
             btn.style.borderColor = '';
@@ -323,51 +175,11 @@ const uniqueBadges = Array.from(badgeSet).sort();
             btn.style.color = '';
           }
         });
-        
-        // Reset UI Tags
-        tagButtons.forEach(btn => {
-            btn.classList.remove('btn-active');
-        });
-        document.querySelector('.filter-btn[data-filter="all"]').classList.add('btn-active');
-        
-        applyFilters();
-      });
-    });
-
-
-    // Listener Tag Filter (RIPRISTINATO: Selezione Multipla OR)
-    tagButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        const tag = button.getAttribute('data-filter');
-        if (button.disabled) return; // Ignora il click se il bottone è disabilitato (Macro attiva)
-
-        // 1. Logica di Selezione (OR Logico)
-        if (tag === 'all') {
-          activeTags.clear();
-        } else {
-          // Toggle del tag selezionato
-          if (activeTags.has(tag)) activeTags.delete(tag);
-          else activeTags.add(tag);
-        }
-        
-        // 2. Aggiorna UI Bottoni (Gestita in gran parte da updateTagStyles, qui solo toggle)
-        tagButtons.forEach(btn => {
-          const btnTag = btn.getAttribute('data-filter');
-          if (btnTag === 'all') {
-            activeTags.size === 0 ? btn.classList.add('btn-active') : btn.classList.remove('btn-active');
-          } else {
-            // Usa 'btn-active' di Tailwind per lo stile di selezione.
-            activeTags.has(btnTag) ? btn.classList.add('btn-active') : btn.classList.remove('btn-active');
-          }
-        });
 
         applyFilters();
       });
     });
-    
-    // ==========================================
-    // 4. LOGICA CAMBIO VISTA (Lista/Griglia) - Invariata
-    // ==========================================
+
     const toggleViewBtn = document.getElementById('view-toggle-btn');
     const container = document.getElementById('projects-grid');
     const iconList = document.getElementById('icon-list');
@@ -396,70 +208,39 @@ const uniqueBadges = Array.from(badgeSet).sort();
       gridCards.forEach(c => isGridView ? c.classList.replace('hidden', 'block') : c.classList.replace('block', 'hidden'));
     });
 
-    // ==========================================
-    // 5. LOGICA ESPANSIONE TAG (Show More/Less) - Invariata
-    // ==========================================
-    const expandBtn = document.getElementById('toggle-advanced-filters');
-    const filterContainer = document.getElementById('filter-container');
-    let isTagsExpanded = false;
-    const TAG_LIMIT = 5;
-
-    function applyTagLimit() {
-      const tagButtons = Array.from(filterContainer.querySelectorAll('.tag-btn'));
-      tagButtons.forEach((btn, index) => {
-        if (isTagsExpanded) {
-          btn.classList.remove('hidden');
-        } else {
-          if (index < TAG_LIMIT) btn.classList.remove('hidden');
-          else btn.classList.add('hidden');
-        }
-      });
-      if (expandBtn) {
-        const remainingTags = tagButtons.length - TAG_LIMIT;
-        expandBtn.innerHTML = isTagsExpanded ? 'Hide Advanced Filters ▲' : `Show Advanced Filters`;
-      }
-    }
-
-    if (expandBtn) {
-      expandBtn.addEventListener('click', () => {
-        isTagsExpanded = !isTagsExpanded;
-        applyTagLimit();
-      });
-      applyTagLimit();
-    }
-
-    // ==========================================
-    // 6. LOGICA ORDINAMENTO TAG - Invariata
-    // ==========================================
     const sortAlphaBtn = document.getElementById('sort-alpha');
     const sortCountBtn = document.getElementById('sort-count');
+    const badgeContainer = document.getElementById('badge-filter-container');
 
-    function sortTags(criteria) {
-      const allButtons = Array.from(filterContainer.querySelectorAll('.filter-btn'));
+    function sortBadges(criteria) {
+      const allButtons = Array.from(badgeContainer.querySelectorAll('.badge-filter-btn'));
       const tuttiButton = allButtons[0];
-      const tagButtons = allButtons.slice(1);
+      const categoryButtons = allButtons.slice(1);
 
-      tagButtons.sort((a, b) => {
+      categoryButtons.sort((a, b) => {
+        const badgeA = a.getAttribute('data-badge-filter');
+        const badgeB = b.getAttribute('data-badge-filter');
         if (criteria === 'alpha') {
-          return a.getAttribute('data-name').localeCompare(b.getAttribute('data-name'));
+          return badgeA.localeCompare(badgeB);
         } else {
-          return parseInt(b.getAttribute('data-count')) - parseInt(a.getAttribute('data-count'));
+          let countA = 0, countB = 0;
+          projectItems.forEach(item => {
+            const itemBadge = item.querySelector('.badge-secondary')?.textContent?.trim() || '';
+            if (itemBadge === badgeA) countA++;
+            if (itemBadge === badgeB) countB++;
+          });
+          return countB - countA;
         }
       });
 
-      filterContainer.innerHTML = '';
-      filterContainer.appendChild(tuttiButton);
-      tagButtons.forEach(btn => filterContainer.appendChild(btn));
-
-      if (expandBtn) applyTagLimit();
-      // Riapplica gli stili di tag dopo l'ordinamento
-      const activeBadge = activeBadges.size === 1 ? Array.from(activeBadges)[0] : null;
-      const activeColor = activeBadge ? COLOR_MAP[activeBadge] : null;
-      updateTagStyles(activeBadge, activeColor);
+      badgeContainer.innerHTML = '';
+      badgeContainer.appendChild(tuttiButton);
+      categoryButtons.forEach(btn => badgeContainer.appendChild(btn));
     }
 
-    sortAlphaBtn.addEventListener('click', () => sortTags('alpha'));
-    sortCountBtn.addEventListener('click', () => sortTags('count'));
-
+    if (sortAlphaBtn && sortCountBtn) {
+      sortAlphaBtn.addEventListener('click', () => sortBadges('alpha'));
+      sortCountBtn.addEventListener('click', () => sortBadges('count'));
+    }
   </script>
 </BaseLayout>

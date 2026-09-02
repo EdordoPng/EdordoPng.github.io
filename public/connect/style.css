@@ -1,0 +1,697 @@
+/* ==========================================================================
+   CONNECT PAGE STYLESHEET
+   Refined Mobile-First CSS for Edoardo Diana (/connect)
+   Visual Direction: Editorial Art-Tech & Minimal Link-in-Bio
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. APPROVED COLOR SYSTEM & DESIGN TOKENS (NEUTRAL COOL DARK)
+   -------------------------------------------------------------------------- */
+:root {
+  /* Restrained Neutral Dark System */
+  --color-bg: #0E0C0D;
+
+  --color-surface: #16181A;
+  --color-surface-elevated: #1C1F22;
+  --color-surface-hover: #22262A;
+
+  --color-text-primary: #F2F3F1;
+  --color-text-secondary: #B4B8B8;
+  --color-text-muted: #7E858A;
+
+  /* Primary Accent: Muted Slate Blue (No Gold / No Warm Metallic) */
+  --color-accent-primary: #2C5D7B;
+  --color-accent-hover: #244358;
+  --color-accent-soft: #789DAF;
+
+  /* Atmospheric Accent: Approved Oxblood (#5A2224) & Dark Bordeaux (#4A1F21) */
+  --color-oxblood: #5A2224;
+  --color-bordeaux-border: #4A1F21;
+
+  /* Neutral Cool Borders */
+  --color-border: rgba(242, 243, 241, 0.08);
+  --color-border-strong: rgba(242, 243, 241, 0.15);
+
+  /* Spacing System */
+  --spacing-xs: 0.25rem;  /* 4px */
+  --spacing-sm: 0.5rem;   /* 8px */
+  --spacing-md: 1rem;     /* 16px */
+  --spacing-lg: 1.25rem;  /* 20px */
+  --spacing-xl: 1.75rem;  /* 28px */
+  --spacing-2xl: 2.5rem;  /* 40px */
+
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+  --radius-full: 9999px;
+
+  /* Focus Ring */
+  --focus-ring: 2px solid #789DAF;
+  --focus-ring-offset: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   2. CSS RESET & SENSIBLE DEFAULTS
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  color-scheme: dark;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: var(--spacing-md);
+  padding-top: max(var(--spacing-md), env(safe-area-inset-top));
+  padding-bottom: max(var(--spacing-md), env(safe-area-inset-bottom));
+  padding-left: max(var(--spacing-md), env(safe-area-inset-left));
+  padding-right: max(var(--spacing-md), env(safe-area-inset-right));
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body.is-modal-open {
+  overflow: hidden;
+}
+
+/* Keyboard focus indicators */
+:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* --------------------------------------------------------------------------
+   3. ARTISTIC BACKGROUND LAYER ARCHITECTURE (ALWAYS STATIONARY)
+   -------------------------------------------------------------------------- */
+.bg-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-color: var(--color-bg);
+  background-image: url('./assets/background.webp');
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-size: min(100vw, 852px) auto;
+}
+
+/* Desktop / Wide Viewport Background Override (900px+) */
+@media (min-width: 900px) {
+  .bg-layer {
+    background-image: url('./assets/background-desktop.webp');
+    background-position: center center;
+    background-size: cover;
+  }
+}
+
+/* Dark Readability Overlay: Translucent ink-black layer for contrast */
+.bg-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-color: rgba(14, 12, 13, 0.20);
+}
+
+/* --------------------------------------------------------------------------
+   4. LAYOUT & CONTAINERS (SYNCHRONIZED DUAL-VIEW HORIZONTAL SLIDER)
+   -------------------------------------------------------------------------- */
+.page-shell {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 0.5rem 0 var(--spacing-lg) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+
+  /* GPU Synchronized Horizontal Translation: Resting at 0 */
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* When CV is open, Main View translates LEFT (-100vw) out of viewport */
+body.is-cv-open .page-shell {
+  transform: translate3d(-100vw, 0, 0);
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   5. REBALANCED HERO & PROFILE SECTION
+   -------------------------------------------------------------------------- */
+.identity-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.75rem;
+}
+
+/* Profile Avatar Frame: 82px diameter, unzoomed artwork with breathing room */
+.profile-avatar-frame {
+  width: 82px;
+  height: 82px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border-strong);
+  padding: 3px;
+  background-color: var(--color-surface);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.profile-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-full);
+  object-fit: contain;
+  object-position: center;
+  background-color: var(--color-bg);
+}
+
+.identity-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.profile-name {
+  font-size: 1.45rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--color-text-primary);
+  line-height: 1.25;
+}
+
+.profile-role-primary {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  margin-top: 2px;
+}
+
+/* Restrained Web3 Builder line */
+.profile-role-secondary {
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: var(--color-text-muted);
+  text-decoration: none;
+}
+
+/* --------------------------------------------------------------------------
+   6. MAIN ACTIONS & BUTTON STYLES
+   -------------------------------------------------------------------------- */
+.main-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.cta-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  min-height: 56px;
+  padding: 0.875rem 1.25rem;
+  border-radius: var(--radius-md);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid transparent;
+  width: 100%;
+  text-align: center;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+}
+
+.btn:active {
+  transform: scale(0.985);
+}
+
+/* Primary CTA: LinkedIn */
+.btn-primary {
+  background-color: var(--color-accent-primary);
+  color: var(--color-text-primary);
+  border-color: rgba(242, 243, 241, 0.1);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-accent-hover);
+  border-color: rgba(242, 243, 241, 0.18);
+}
+
+/* Secondary CTA: Save Contact */
+.btn-secondary {
+  background-color: var(--color-surface);
+  color: var(--color-text-primary);
+  border-color: var(--color-border);
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-surface-hover);
+  border-color: var(--color-border-strong);
+}
+
+.btn-icon {
+  flex-shrink: 0;
+  color: currentColor;
+}
+
+/* --------------------------------------------------------------------------
+   7. GROUPED PROFESSIONAL LINKS CONTAINER
+   -------------------------------------------------------------------------- */
+.grouped-links-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.grouped-links-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.grouped-link-item {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.grouped-link-item:last-child {
+  border-bottom: none;
+}
+
+.grouped-link-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 64px;
+  padding: 0.875rem 1.125rem;
+  color: var(--color-text-primary);
+  text-decoration: none;
+  background: transparent;
+  width: 100%;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+  text-align: left;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 0.15s ease;
+  gap: 0.75rem;
+}
+
+.grouped-link-row:hover {
+  background-color: var(--color-surface-hover);
+}
+
+.grouped-link-row:active {
+  transform: scale(0.985);
+}
+
+.link-info {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  min-width: 0;
+  flex-shrink: 1;
+}
+
+.link-icon-start {
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+}
+
+.link-label {
+  font-weight: 500;
+  font-size: 0.9375rem;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}
+
+.link-end {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  flex-shrink: 0;
+}
+
+.link-meta {
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.link-icon-end {
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+
+/* --------------------------------------------------------------------------
+   8. UTILITY & SHOW QR BUTTON
+   -------------------------------------------------------------------------- */
+.utility-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.btn-qr-toggle {
+  background-color: var(--color-surface-elevated);
+  color: var(--color-text-primary);
+  border-color: var(--color-border);
+  justify-content: space-between;
+  padding: 0.875rem 1.125rem;
+  min-height: 56px;
+  border-radius: var(--radius-lg);
+}
+
+.btn-qr-toggle:hover {
+  background-color: var(--color-surface-hover);
+  border-color: var(--color-border-strong);
+}
+
+.btn-qr-toggle .btn-text {
+  flex-grow: 1;
+  text-align: left;
+  margin-left: 0.25rem;
+}
+
+/* --------------------------------------------------------------------------
+   9. DEDICATED CV SELECTION SUBVIEW (SYNCHRONIZED ADJACENT VIEWPORT LAYER)
+   -------------------------------------------------------------------------- */
+.cv-view {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: var(--spacing-md);
+  padding-top: max(var(--spacing-md), env(safe-area-inset-top));
+  padding-bottom: max(var(--spacing-md), env(safe-area-inset-bottom));
+  padding-left: max(var(--spacing-md), env(safe-area-inset-left));
+  padding-right: max(var(--spacing-md), env(safe-area-inset-right));
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  
+  /* GPU Synchronized Horizontal Translation: Resting Off-Screen RIGHT (+100vw) */
+  transform: translate3d(100vw, 0, 0);
+  visibility: hidden;
+  pointer-events: none;
+  transition: transform 0.24s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s 0.24s;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* When CV is open, CV View translates IN to (0, 0, 0) */
+body.is-cv-open .cv-view {
+  transform: translate3d(0, 0, 0);
+  visibility: visible;
+  pointer-events: auto;
+  transition: transform 0.24s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s 0s;
+}
+
+.cv-view-shell {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  min-height: calc(100vh - var(--spacing-md) * 2 - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  min-height: calc(100dvh - var(--spacing-md) * 2 - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  padding: 0.5rem 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Top: Horizontally Centered CV Title (~7rem top offset) */
+.cv-title {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  letter-spacing: -0.015em;
+  text-align: center;
+  margin-top: 7rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Middle Region: Vertically Centered Download Card Container */
+.cv-download-region {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 1rem 0 1.5rem 0;
+}
+
+.cv-download-card {
+  width: 100%;
+}
+
+/* Bottom Region: Full-Width 60% Oxblood Translucent Back Button CTA */
+.cv-footer-region {
+  width: 100%;
+  margin-top: auto;
+  padding-top: 1rem;
+  padding-bottom: max(3.25rem, calc(2.75rem + env(safe-area-inset-bottom)));
+}
+
+.btn-cv-back {
+  position: relative;
+  background-color: rgba(90, 34, 36, 0.60);
+  color: var(--color-text-primary);
+  border: 1px solid #4A1F21;
+  border-radius: var(--radius-lg);
+  min-height: 56px;
+  padding: 0.875rem 1.25rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+}
+
+.btn-cv-back .btn-icon-start {
+  position: absolute;
+  left: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: currentColor;
+  flex-shrink: 0;
+}
+
+.btn-cv-back:hover {
+  background-color: rgba(90, 34, 36, 0.80);
+  border-color: #6C292B;
+}
+
+.btn-cv-back:active {
+  transform: scale(0.985);
+}
+
+.btn-cv-back:focus-visible {
+  outline: 2px solid #7A2E31;
+  outline-offset: 2px;
+}
+
+/* Short Mobile Screens Fallback (e.g. 320x568 / height <= 600px) */
+@media (max-height: 600px) {
+  .cv-view-shell {
+    min-height: auto;
+  }
+  .cv-title {
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .cv-download-region {
+    padding: 0.75rem 0;
+  }
+  .cv-footer-region {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+}
+
+/* --------------------------------------------------------------------------
+   10. FULLSCREEN QR MODAL OVERLAY
+   -------------------------------------------------------------------------- */
+.qr-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.qr-modal:not([hidden]) {
+  opacity: 1;
+  visibility: visible;
+  display: flex;
+}
+
+.qr-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(14, 12, 13, 0.94);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.qr-modal-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 320px;
+  background-color: var(--color-surface-elevated);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  padding: 2.25rem 1.5rem 1.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.25rem;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.7);
+}
+
+.qr-close-btn {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: transparent;
+  border: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.qr-close-btn:hover {
+  color: var(--color-text-primary);
+  background-color: var(--color-surface-hover);
+}
+
+.qr-modal-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  letter-spacing: -0.01em;
+}
+
+/* QR Code Frame with White Quiet Zone */
+.qr-code-frame {
+  width: 240px;
+  height: 240px;
+  background-color: #FFFFFF;
+  border-radius: var(--radius-md);
+  padding: 0.625rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.qr-code-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.qr-modal-subtitle {
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+/* --------------------------------------------------------------------------
+   11. MEDIA QUERIES & NARROW SCREEN ADAPTATIONS
+   -------------------------------------------------------------------------- */
+@media (max-width: 340px) {
+  .grouped-link-row {
+    padding: 0.75rem 0.875rem;
+  }
+  .link-info {
+    gap: 0.625rem;
+  }
+  .link-meta {
+    font-size: 0.75rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   12. REDUCED MOTION ACCESSIBILITY OVERRIDE
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .page-shell,
+  .cv-view {
+    transition: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+    transform: none !important;
+  }
+}
