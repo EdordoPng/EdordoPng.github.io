@@ -273,17 +273,6 @@ body.is-cv-open .page-shell {
   border-color: rgba(242, 243, 241, 0.18);
 }
 
-/* Secondary CTA: Save Contact */
-.btn-secondary {
-  background-color: var(--color-surface);
-  color: var(--color-text-primary);
-  border-color: var(--color-border);
-}
-
-.btn-secondary:hover {
-  background-color: var(--color-surface-hover);
-  border-color: var(--color-border-strong);
-}
 
 .btn-icon {
   flex-shrink: 0;
