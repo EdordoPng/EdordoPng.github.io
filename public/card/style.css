@@ -1,0 +1,511 @@
+/* ==========================================================================
+   ED CARD — DIGITAL BUSINESS CARD STYLESHEET
+   Minimal Mobile-First UI with GPU-Accelerated 3D Flip Transformation,
+   Quick Actions & CV Selector Modal
+   ========================================================================== */
+
+:root {
+  --color-bg: #0A0A0B;
+  --color-surface: #16181A;
+  --color-surface-elevated: #1C1F22;
+  --color-surface-hover: #22262A;
+  --color-border: rgba(242, 243, 241, 0.12);
+  --color-border-strong: rgba(242, 243, 241, 0.22);
+  --color-text-primary: #F2F3F1;
+  --color-text-muted: #8E8E93;
+  --color-focus-ring: #2C5D7B;
+  
+  --spacing-safe-top: max(1.25rem, env(safe-area-inset-top));
+  --spacing-safe-bottom: max(1.25rem, env(safe-area-inset-bottom));
+  --spacing-safe-left: max(1rem, env(safe-area-inset-left));
+  --spacing-safe-right: max(1rem, env(safe-area-inset-right));
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  color-scheme: dark;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+body.is-modal-open {
+  overflow: hidden;
+}
+
+/* Page Container */
+.card-page-container {
+  width: 100%;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.125rem;
+  padding-top: var(--spacing-safe-top);
+  padding-bottom: var(--spacing-safe-bottom);
+  padding-left: var(--spacing-safe-left);
+  padding-right: var(--spacing-safe-right);
+}
+
+/* 3D Perspective Viewport */
+.card-perspective-viewport {
+  width: min(92vw, 440px);
+  perspective: 1200px;
+  -webkit-perspective: 1200px;
+}
+
+/* Interactive Card Button */
+.card-button {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1009 / 635;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  border-radius: 14px;
+  position: relative;
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+/* Focus State */
+.card-button:focus-visible,
+.action-btn:focus-visible,
+.qr-close-btn:focus-visible,
+.cv-btn:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 4px;
+  border-radius: 12px;
+}
+
+.card-button:active {
+  transform: scale(0.985);
+}
+
+/* Inner 3D Container */
+.card-inner {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+  border-radius: 14px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6), 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+/* Flipped State via CSS Attribute */
+.card-button[aria-pressed="true"] .card-inner {
+  transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
+}
+
+/* Card Faces */
+.card-face {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.card-face-front {
+  transform: rotateY(0deg);
+  -webkit-transform: rotateY(0deg);
+}
+
+.card-face-back {
+  transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
+}
+
+/* Images 1:1 Rendering */
+.card-face img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  border-radius: 14px;
+  pointer-events: none;
+}
+
+/* Visual Hint Below Card */
+.flip-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.84rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--color-text-muted);
+  opacity: 0.8;
+  user-select: none;
+  margin-bottom: 0.125rem;
+}
+
+.hint-icon {
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+/* --------------------------------------------------------------------------
+   QUICK ACTIONS NAVIGATION BAR (4 ACTIONS)
+   -------------------------------------------------------------------------- */
+.quick-actions-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: min(92vw, 440px);
+}
+
+.action-btn {
+  flex: 1 1 0px;
+  min-height: 48px;
+  padding: 0.75rem 0.375rem;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  color: var(--color-text-primary);
+  font-size: 0.825rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+  white-space: nowrap;
+}
+
+.action-btn:hover {
+  background-color: var(--color-surface-hover);
+  border-color: var(--color-border-strong);
+}
+
+.action-btn:active {
+  transform: scale(0.975);
+}
+
+.action-icon {
+  flex-shrink: 0;
+  color: currentColor;
+}
+
+/* --------------------------------------------------------------------------
+   FULLSCREEN QR, SHARE & CV MODAL OVERLAYS
+   -------------------------------------------------------------------------- */
+.qr-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.qr-modal:not([hidden]) {
+  opacity: 1;
+  visibility: visible;
+  display: flex;
+}
+
+.qr-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(10, 10, 11, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.qr-modal-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 320px;
+  background-color: var(--color-surface-elevated);
+  border: 1px solid var(--color-border-strong);
+  border-radius: 18px;
+  padding: 2.25rem 1.5rem 1.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.25rem;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.7);
+  max-height: calc(100vh - 2.5rem);
+  max-height: calc(100dvh - 2.5rem);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.qr-close-btn {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: transparent;
+  border: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.qr-close-btn:hover {
+  color: var(--color-text-primary);
+  background-color: var(--color-surface-hover);
+}
+
+.qr-modal-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  letter-spacing: -0.015em;
+}
+
+.qr-code-frame {
+  width: 240px;
+  height: 240px;
+  background-color: #FFFFFF;
+  border-radius: 14px;
+  padding: 0.625rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.qr-code-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.qr-modal-subtitle {
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.share-url-input {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-size: 0.8125rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  text-align: center;
+}
+
+/* --------------------------------------------------------------------------
+   CV SELECTOR MODAL STYLES
+   -------------------------------------------------------------------------- */
+.cv-modal-content {
+  max-width: 380px;
+  padding: 2.25rem 1.25rem 1.5rem 1.25rem;
+  gap: 1rem;
+}
+
+.cv-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.cv-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.875rem 1rem;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  gap: 0.5rem;
+}
+
+.cv-info {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.cv-title {
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: var(--color-text-primary);
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cv-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.cv-btn {
+  min-height: 44px;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border-radius: 8px;
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  user-select: none;
+  border: 1px solid transparent;
+  -webkit-tap-highlight-color: transparent;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
+}
+
+.cv-btn:active {
+  transform: scale(0.96);
+}
+
+.cv-btn-open {
+  background-color: var(--color-surface-elevated);
+  color: var(--color-text-primary);
+  border-color: var(--color-border);
+}
+
+.cv-btn-open:hover {
+  background-color: var(--color-surface-hover);
+  border-color: var(--color-border-strong);
+}
+
+.cv-btn-share {
+  background-color: transparent;
+  color: var(--color-text-muted);
+  border-color: var(--color-border);
+}
+
+.cv-btn-share:hover {
+  color: var(--color-text-primary);
+  background-color: var(--color-surface-hover);
+  border-color: var(--color-border-strong);
+}
+
+/* --------------------------------------------------------------------------
+   TOAST NOTIFICATION FOR FEEDBACK
+   -------------------------------------------------------------------------- */
+.toast-notification {
+  position: fixed;
+  bottom: calc(2rem + env(safe-area-inset-bottom));
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1100;
+  background-color: var(--color-surface-elevated);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border-strong);
+  border-radius: 9999px;
+  padding: 0.625rem 1.25rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.toast-notification:not([hidden]) {
+  opacity: 1;
+}
+
+/* --------------------------------------------------------------------------
+   PREFERS REDUCED MOTION OVERRIDE
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .card-inner {
+    transition: opacity 0.15s ease-in-out !important;
+    transform-style: flat !important;
+    -webkit-transform-style: flat !important;
+  }
+
+  .card-face {
+    backface-visibility: visible !important;
+    -webkit-backface-visibility: visible !important;
+    transition: opacity 0.15s ease-in-out;
+  }
+
+  .card-face-front {
+    opacity: 1;
+    transform: none !important;
+    -webkit-transform: none !important;
+  }
+
+  .card-face-back {
+    opacity: 0;
+    transform: none !important;
+    -webkit-transform: none !important;
+  }
+
+  .card-button[aria-pressed="true"] .card-inner {
+    transform: none !important;
+    -webkit-transform: none !important;
+  }
+
+  .card-button[aria-pressed="true"] .card-face-front {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .card-button[aria-pressed="true"] .card-face-back {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}

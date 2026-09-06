@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>ED Card | Edoardo Diana</title>
+  <meta name="description" content="Digital Business Card di Edoardo Diana — AI &amp; Cybersecurity Engineer, Web3 Builder." />
+  <link rel="icon" type="image/png" href="./assets/icons/icon-192.png" />
+  
+  <!-- PWA Manifest & Theme Color -->
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <meta name="theme-color" content="#0A0A0B" />
+  <meta name="mobile-web-app-capable" content="yes" />
+
+  <!-- iOS Apple Touch Icon & Standalone WebApp Metadata -->
+  <link rel="apple-touch-icon" href="./assets/icons/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="ED Card" />
+
+  <!-- Preload high priority card assets -->
+  <link rel="preload" as="image" href="./assets/front.png" fetchpriority="high" />
+  <link rel="preload" as="image" href="./assets/back.png" fetchpriority="high" />
+
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <main class="card-page-container">
+    
+    <!-- 3D Perspective Viewport for Business Card -->
+    <div class="card-perspective-viewport">
+      <button
+        type="button"
+        id="card-flip-btn"
+        class="card-button"
+        aria-pressed="false"
+        aria-label="Biglietto da visita di Edoardo Diana. Faccia attuale: Fronte. Seleziona per mostrare il retro."
+      >
+        <span class="card-inner">
+          <span class="card-face card-face-front">
+            <img
+              src="./assets/front.png"
+              alt=""
+              width="1009"
+              height="635"
+              loading="eager"
+            />
+          </span>
+          <span class="card-face card-face-back">
+            <img
+              src="./assets/back.png"
+              alt=""
+              width="1009"
+              height="635"
+              loading="eager"
+            />
+          </span>
+        </span>
+      </button>
+    </div>
+
+    <!-- Visual hint below card -->
+    <p class="flip-hint" aria-hidden="true">
+      <svg class="hint-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+      </svg>
+      <span>Tap card to flip</span>
+    </p>
+
+    <!-- Quick Actions Navigation -->
+    <nav class="quick-actions-nav" aria-label="Azioni rapide">
+      
+      <!-- Action 1: QR Modal Trigger -->
+      <button
+        type="button"
+        id="action-qr-btn"
+        class="action-btn"
+        aria-haspopup="dialog"
+        aria-expanded="false"
+        aria-controls="qr-modal"
+        aria-label="Mostra codice QR fullscreen per connettersi"
+      >
+        <svg class="action-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect width="5" height="5" x="3" y="3" rx="1"/>
+          <rect width="5" height="5" x="16" y="3" rx="1"/>
+          <rect width="5" height="5" x="3" y="16" rx="1"/>
+          <path d="M21 16h-3a2 2 0 0 0-2 2v3"/>
+          <path d="M21 21v.01"/>
+          <path d="M12 7v3a2 2 0 0 1-2 2H7"/>
+          <path d="M3 12h.01"/>
+          <path d="M12 3h.01"/>
+          <path d="M12 16v.01"/>
+          <path d="M16 12h1"/>
+          <path d="M21 12v.01"/>
+          <path d="M12 21v-1"/>
+        </svg>
+        <span>QR</span>
+      </button>
+
+      <!-- Action 2: Share Native / Fallback Trigger -->
+      <button
+        type="button"
+        id="action-share-btn"
+        class="action-btn"
+        aria-label="Condividi profilo digitale di Edoardo Diana"
+      >
+        <svg class="action-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="18" cy="5" r="3"/>
+          <circle cx="6" cy="12" r="3"/>
+          <circle cx="18" cy="19" r="3"/>
+          <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+          <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+        </svg>
+        <span>Share</span>
+      </button>
+
+      <!-- Action 3: CV Selector Modal Trigger -->
+      <button
+        type="button"
+        id="action-cv-btn"
+        class="action-btn"
+        aria-haspopup="dialog"
+        aria-expanded="false"
+        aria-controls="cv-modal"
+        aria-label="Apri menu di selezione CV professionali"
+      >
+        <svg class="action-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" x2="8" y1="13" y2="13"/>
+          <line x1="16" x2="8" y1="17" y2="17"/>
+        </svg>
+        <span>CV</span>
+      </button>
+
+      <!-- Action 4: Connect External Link -->
+      <a
+        href="https://edordopng.github.io/connect/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="action-btn"
+        aria-label="Apri profilo completo /connect/ in una nuova scheda"
+      >
+        <svg class="action-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+          <polyline points="15 3 21 3 21 9"/>
+          <line x1="10" y1="14" x2="21" y2="3"/>
+        </svg>
+        <span>Connect</span>
+      </a>
+
+    </nav>
+  </main>
+
+  <!-- Fullscreen QR Code Overlay Modal -->
+  <div
+    id="qr-modal"
+    class="qr-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="qr-modal-title"
+    hidden
+  >
+    <div class="qr-modal-backdrop" id="qr-modal-backdrop"></div>
+    <div class="qr-modal-content">
+      <button
+        type="button"
+        id="qr-close-btn"
+        class="qr-close-btn"
+        aria-label="Chiudi finestra codice QR"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+
+      <h2 id="qr-modal-title" class="qr-modal-title">Scan to connect</h2>
+
+      <div class="qr-code-frame" aria-label="Codice QR per edordopng.github.io/connect/">
+        <img
+          src="./assets/connect-qr.svg"
+          alt="Codice QR per edordopng.github.io/connect/"
+          class="qr-code-img"
+          width="240"
+          height="240"
+          loading="eager"
+        />
+      </div>
+
+      <p class="qr-modal-subtitle">edordopng.github.io/connect/</p>
+    </div>
+  </div>
+
+  <!-- CV Selector Overlay Modal -->
+  <div
+    id="cv-modal"
+    class="qr-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="cv-modal-title"
+    hidden
+  >
+    <div class="qr-modal-backdrop" id="cv-modal-backdrop"></div>
+    <div class="qr-modal-content cv-modal-content">
+      <button
+        type="button"
+        id="cv-close-btn"
+        class="qr-close-btn"
+        aria-label="Chiudi selezione CV"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+
+      <h2 id="cv-modal-title" class="qr-modal-title">Select CV</h2>
+      <p class="qr-modal-subtitle">Choose the profile you want to open or share.</p>
+
+      <ul class="cv-list" aria-label="Elenco versioni CV">
+        
+        <!-- CV 1: AI Engineer -->
+        <li class="cv-item">
+          <div class="cv-info">
+            <span class="cv-title">AI Engineer</span>
+          </div>
+          <div class="cv-actions">
+            <a
+              href="https://edordopng.github.io/connect/assets/cv/Edoardo_Diana_AIEngineer_2026.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="cv-btn cv-btn-open"
+              aria-label="Apri CV AI Engineer PDF"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15 3 21 3 21 9"/>
+                <line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+              <span>Open</span>
+            </a>
+            <button
+              type="button"
+              class="cv-btn cv-btn-share"
+              data-cv-title="Edoardo Diana — AI Engineer CV"
+              data-cv-text="CV — Edoardo Diana, AI Engineer"
+              data-cv-url="https://edordopng.github.io/connect/assets/cv/Edoardo_Diana_AIEngineer_2026.pdf"
+              data-cv-toast="AI CV link copied"
+              aria-label="Condividi CV AI Engineer"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="18" cy="5" r="3"/>
+                <circle cx="6" cy="12" r="3"/>
+                <circle cx="18" cy="19" r="3"/>
+                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+              </svg>
+              <span>Share</span>
+            </button>
+          </div>
+        </li>
+
+        <!-- CV 2: Blockchain / Web3 -->
+        <li class="cv-item">
+          <div class="cv-info">
+            <span class="cv-title">Blockchain / Web3</span>
+          </div>
+          <div class="cv-actions">
+            <a
+              href="https://edordopng.github.io/connect/assets/cv/Edoardo_Diana_BlockchainWeb3Developer_2026.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="cv-btn cv-btn-open"
+              aria-label="Apri CV Blockchain / Web3 PDF"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15 3 21 3 21 9"/>
+                <line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+              <span>Open</span>
+            </a>
+            <button
+              type="button"
+              class="cv-btn cv-btn-share"
+              data-cv-title="Edoardo Diana — Blockchain / Web3 CV"
+              data-cv-text="CV — Edoardo Diana, Blockchain / Web3 Developer"
+              data-cv-url="https://edordopng.github.io/connect/assets/cv/Edoardo_Diana_BlockchainWeb3Developer_2026.pdf"
+              data-cv-toast="Blockchain CV link copied"
+              aria-label="Condividi CV Blockchain / Web3"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="18" cy="5" r="3"/>
+                <circle cx="6" cy="12" r="3"/>
+                <circle cx="18" cy="19" r="3"/>
+                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+              </svg>
+              <span>Share</span>
+            </button>
+          </div>
+        </li>
+
+        <!-- CV 3: Cybersecurity -->
+        <li class="cv-item">
+          <div class="cv-info">
+            <span class="cv-title">Cybersecurity</span>
+          </div>
+          <div class="cv-actions">
+            <a
+              href="https://edordopng.github.io/connect/assets/cv/Edoardo_Diana_CybersecurityEngineer_2026.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="cv-btn cv-btn-open"
+              aria-label="Apri CV Cybersecurity PDF"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15 3 21 3 21 9"/>
+                <line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+              <span>Open</span>
+            </a>
+            <button
+              type="button"
+              class="cv-btn cv-btn-share"
+              data-cv-title="Edoardo Diana — Cybersecurity CV"
+              data-cv-text="CV — Edoardo Diana, Cybersecurity Engineer"
+              data-cv-url="https://edordopng.github.io/connect/assets/cv/Edoardo_Diana_CybersecurityEngineer_2026.pdf"
+              data-cv-toast="Cybersecurity CV link copied"
+              aria-label="Condividi CV Cybersecurity"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="18" cy="5" r="3"/>
+                <circle cx="6" cy="12" r="3"/>
+                <circle cx="18" cy="19" r="3"/>
+                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/>
+                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+              </svg>
+              <span>Share</span>
+            </button>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+
+  <!-- Share Fallback Modal (If both Share API and Clipboard API fail) -->
+  <div
+    id="share-modal"
+    class="qr-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="share-modal-title"
+    hidden
+  >
+    <div class="qr-modal-backdrop" id="share-modal-backdrop"></div>
+    <div class="qr-modal-content">
+      <button
+        type="button"
+        id="share-close-btn"
+        class="qr-close-btn"
+        aria-label="Chiudi finestra condivisione"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+
+      <h2 id="share-modal-title" class="qr-modal-title">Share Link</h2>
+      <p class="qr-modal-subtitle">Seleziona e copia l'URL sottostante:</p>
+      <input type="text" readonly value="https://edordopng.github.io/connect/" id="share-url-input" class="share-url-input" aria-label="URL di condivisione" />
+    </div>
+  </div>
+
+  <!-- Toast Notification for Clipboard Feedback -->
+  <div
+    id="toast-notification"
+    class="toast-notification"
+    role="status"
+    aria-live="polite"
+    aria-atomic="true"
+    hidden
+  >
+    <span>Link copied</span>
+  </div>
+
+  <script src="./script.js" defer></script>
+</body>
+</html>
