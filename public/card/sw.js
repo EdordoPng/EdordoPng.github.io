@@ -3,7 +3,7 @@
  * Conservative, allowlist-based Service Worker strictly scoped to /card/
  */
 
-const CACHE_NAME = 'ed-card-core-v1';
+const CACHE_NAME = 'ed-card-core-v2';
 
 // Strict Precache Whitelist
 const PRECACHE_ASSETS = [
@@ -14,7 +14,7 @@ const PRECACHE_ASSETS = [
   './manifest.webmanifest',
   './assets/front.png',
   './assets/back.png',
-  './assets/connect-qr.svg',
+  '/assets/qr.svg',
   './assets/icons/icon-192.png',
   './assets/icons/icon-512.png',
   './assets/icons/icon-maskable-512.png',
@@ -65,8 +65,8 @@ self.addEventListener('fetch', (event) => {
     return; // Pass through external domains
   }
 
-  // Do NOT intercept /connect/, /cv/, /projects/, or root portfolio requests
-  if (!url.pathname.includes('/card/')) {
+  // Do NOT intercept /connect/, /cv/, /projects/, or root portfolio requests (except /assets/qr.svg)
+  if (!url.pathname.includes('/card/') && url.pathname !== '/assets/qr.svg') {
     return; // Pass through non-/card/ paths without calling event.respondWith()
   }
 
