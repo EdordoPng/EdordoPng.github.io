@@ -1,0 +1,47 @@
+---
+import { QR_REDIRECT_URL } from '../config';
+
+// Validate QR_REDIRECT_URL configuration
+if (!QR_REDIRECT_URL || typeof QR_REDIRECT_URL !== 'string') {
+  throw new Error('[QR Redirect Error] QR_REDIRECT_URL in src/config.ts must be a non-empty string.');
+}
+
+let parsedUrl: URL;
+try {
+  parsedUrl = new URL(QR_REDIRECT_URL);
+} catch (error) {
+  throw new Error(`[QR Redirect Error] QR_REDIRECT_URL "${QR_REDIRECT_URL}" in src/config.ts is not a valid absolute URL.`);
+}
+
+if (parsedUrl.protocol !== 'http:' && parsedUrl.protocol !== 'https:') {
+  throw new Error(`[QR Redirect Error] Invalid protocol "${parsedUrl.protocol}" in QR_REDIRECT_URL. Only "http:" and "https:" are allowed.`);
+}
+
+// Anti-loop check: prevent destination from pointing back to the /qr/ route on the same site
+const siteUrlString = Astro.site ? Astro.site.toString() : 'https://edordopng.github.io/';
+const siteUrl = new URL(siteUrlString);
+
+if (
+  parsedUrl.hostname.toLowerCase() === siteUrl.hostname.toLowerCase() &&
+  (parsedUrl.pathname === '/qr' || parsedUrl.pathname === '/qr/')
+) {
+  throw new Error(`[QR Redirect Error] QR_REDIRECT_URL cannot point to "/qr" or "/qr/" on the same domain (redirect loop detected).`);
+}
+
+const targetUrl = parsedUrl.toString();
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Redirecting...</title>
+  <meta name="robots" content="noindex, nofollow, noarchive" />
+  <meta http-equiv="refresh" content={`0;url=${targetUrl}`} />
+  <script is:inline set:html={`window.location.replace(${JSON.stringify(targetUrl)});`} />
+</head>
+<body>
+  <p>Redirecting...</p>
+  <p><a href={targetUrl}>Continue</a></p>
+</body>
+</html>
